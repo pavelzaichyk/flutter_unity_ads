@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
-import 'constants.dart';
+import 'src/constants.dart';
 
 /// Unity Ads plugin for Flutter applications.
 class UnityAds {
@@ -23,7 +23,8 @@ class UnityAds {
     Map<String, dynamic> arguments = {
       gameIdParameter: gameId,
       testModeParameter: testMode,
-      firebaseTestLabModeParameter: firebaseTestLabMode.toString().split('.').last,
+      firebaseTestLabModeParameter:
+          firebaseTestLabMode.toString().split('.').last,
     };
     try {
       if (listener != null) {
@@ -59,11 +60,14 @@ class UnityAds {
   ///
   /// [placementId] placement identifier, as defined in Unity Ads admin tools
   /// If true, placement are shown
-  static Future<bool> showVideoAd({@required String placementId, Function(UnityAdState, dynamic) listener}) async {
+  static Future<bool> showVideoAd(
+      {@required String placementId,
+      Function(UnityAdState, dynamic) listener}) async {
     try {
       if (listener != null) {
         _channels
-            .putIfAbsent(placementId, () => MethodChannel('${videoAdChannel}_$placementId'))
+            .putIfAbsent(placementId,
+                () => MethodChannel('${videoAdChannel}_$placementId'))
             .setMethodCallHandler((call) => _methodCall(call, listener));
       }
 
@@ -78,7 +82,8 @@ class UnityAds {
     }
   }
 
-  static Future<dynamic> _methodCall(MethodCall call, Function(UnityAdState, dynamic) listener) {
+  static Future<dynamic> _methodCall(
+      MethodCall call, Function(UnityAdState, dynamic) listener) {
     switch (call.method) {
       case readyMethod:
         listener(UnityAdState.ready, call.arguments);

@@ -1,14 +1,16 @@
 # unity_ads_plugin
 
 
-[Unity Ads](https://unity.com/solutions/unity-ads) plugin for Flutter Applications (Android).
+[Unity Ads](https://unity.com/solutions/unity-ads) plugin for Flutter Applications (Android).  This plugin is able to display Unity Banner Ads and Unity Video Ads.
+
+iOS support is in development.
 
 ## Getting Started
 
 ### 1. Initialization:
 
 ```dart
-UnityAds.init(gameId: "game_id", testMode: true);
+UnityAds.init(gameId: "game_id");
 ```
 Set your Game id.
 For testing purposes set `testMode` to `true`.
@@ -16,7 +18,7 @@ For testing purposes set `testMode` to `true`.
 
 ### 2. Show Banner Ad:
 
-![Banner Ad](/example/images/banner.gif "Banner Ad")
+![Banner Ad](https://github.com/pavzay/flutter_unity_ads/raw/master/example/images/banner.gif "Banner Ad")
 
 
 Place `UnityBannerAd` widget in your app.
@@ -30,7 +32,7 @@ UnityBannerAd(
 
 ### 3. Show Rewarded Video Ad:
 
-![Rewarded Video Ad](/example/images/rewarded.gif "Rewarded Video Ad")
+![Rewarded Video Ad](https://github.com/pavzay/flutter_unity_ads/raw/master/example/images/rewarded.gif "Rewarded Video Ad")
 
 
 ```dart
@@ -39,8 +41,7 @@ UnityAds.showVideoAd(
   listener: (state, args) {
     if (state == UnityAdState.complete) {
       print('User watched a video. User should get a reward!');
-    }
-    if (state == UnityAdState.skipped) {
+    } else if (state == UnityAdState.skipped) {
       print('User cancel video.');
     }
   },
@@ -49,7 +50,7 @@ UnityAds.showVideoAd(
 
 ### 4. Show Interstitial Video Ad:
 
-![Interstitial Video Ad](/example/images/interstitial.gif "Interstitial Video Ad")
+![Interstitial Video Ad](https://github.com/pavzay/flutter_unity_ads/raw/master/example/images/interstitial.gif "Interstitial Video Ad")
 
 
 ```dart

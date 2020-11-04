@@ -1,8 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:unity_ads_plugin/ad/unity_banner_ad.dart';
 import 'package:unity_ads_plugin/unity_ads.dart';
-import 'package:unity_ads_plugin/unity_banner_ad.dart';
 
 void main() {
   runApp(UnityAdsExampleApp());
@@ -66,7 +66,8 @@ class _UnityAdsExampleState extends State<UnityAdsExample> {
                 onPressed: () {
                   UnityAds.showVideoAd(
                     placementId: AdManager.rewardedVideoAdPlacementId,
-                    listener: (state, args) => print('Rewarded Video Listener: $state => $args'),
+                    listener: (state, args) =>
+                        print('Rewarded Video Listener: $state => $args'),
                   );
                 },
                 child: Text('Show Rewarded Video'),
@@ -75,7 +76,8 @@ class _UnityAdsExampleState extends State<UnityAdsExample> {
                 onPressed: () {
                   UnityAds.showVideoAd(
                     placementId: AdManager.interstitialVideoAdPlacementId,
-                    listener: (state, args) => print('Interstitial Video Listener: $state => $args'),
+                    listener: (state, args) =>
+                        print('Interstitial Video Listener: $state => $args'),
                   );
                 },
                 child: Text('Show Interstitial Video'),
