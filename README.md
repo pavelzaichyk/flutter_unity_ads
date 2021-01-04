@@ -1,5 +1,6 @@
 # unity_ads_plugin
 
+[![Pub](https://img.shields.io/pub/v/unity_ads_plugin.svg)](https://pub.dev/packages/unity_ads_plugin)
 
 [Unity Ads](https://unity.com/solutions/unity-ads) plugin for Flutter Applications (Android).  This plugin is able to display Unity Banner Ads and Unity Video Ads.
 

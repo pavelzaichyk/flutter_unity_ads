@@ -1,6 +1,6 @@
 # unity_ads_example
 
-Demonstrates how to use the unity_ads plugin.
+Demonstrates how to use the unity_ads_plugin plugin.
 
 ## Getting Started
 
