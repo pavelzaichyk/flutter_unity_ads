@@ -5,13 +5,12 @@ import com.unity3d.ads.UnityAds;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 import io.flutter.plugin.common.BinaryMessenger;
 import io.flutter.plugin.common.MethodChannel;
 
 public class UnityAdsListener implements IUnityAdsListener {
-    private final ConcurrentHashMap<String, MethodChannel> placementChannels = new ConcurrentHashMap<>();
+    private final HashMap<String, MethodChannel> placementChannels = new HashMap<>();
     private final BinaryMessenger messenger;
     private final MethodChannel defaultChannel;
 
@@ -51,9 +50,15 @@ public class UnityAdsListener implements IUnityAdsListener {
     }
 
     private MethodChannel findChannel(String placementId) {
-        return placementChannels.computeIfAbsent(placementId,
-                (key) -> new MethodChannel(messenger,
-                        UnityAdsConstants.VIDEO_AD_CHANNEL + "_" + placementId));
+        MethodChannel channel;
+        if (placementChannels.containsKey(placementId)) {
+            channel = placementChannels.get(placementId);
+        } else {
+            channel = new MethodChannel(messenger,
+                    UnityAdsConstants.VIDEO_AD_CHANNEL + "_" + placementId);
+            placementChannels.put(placementId, channel);
+        }
+        return channel;
     }
 
     private void onReady(String placementId) {
