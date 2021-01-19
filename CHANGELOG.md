@@ -1,3 +1,9 @@
+## 0.1.0
+
+* Added support Unity Banner Ads and Video Ads for iOS.
+* Made changes to support android sdk version 19.
+* Switched unity ads version to 3.6.0.
+
 ## 0.0.3
 
 * Updated readme. Switched unity ads version to 3.5.1. Fixed build issue for ios.

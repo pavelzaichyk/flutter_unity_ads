@@ -58,6 +58,27 @@ class _UnityBannerAdState extends State<UnityBannerAd> {
         ),
       );
     }
+    if (defaultTargetPlatform == TargetPlatform.iOS) {
+      return Container(
+        height: widget.size.height + 0.0,
+        width: widget.size.width + 0.0,
+        child: OverflowBox(
+          maxHeight: _isLoaded ? widget.size.height + 0.0 : 1,
+          minHeight: 0.1,
+          alignment: Alignment.bottomCenter,
+          child: UiKitView(
+            viewType: bannerAdChannel,
+            creationParams: <String, dynamic>{
+              placementIdParameter: widget.placementId,
+              widthParameter: widget.size.width,
+              heightParameter: widget.size.height,
+            },
+            creationParamsCodec: StandardMessageCodec(),
+            onPlatformViewCreated: _onBannerAdViewCreated,
+          ),
+        ),
+      );
+    }
 
     return Container();
   }

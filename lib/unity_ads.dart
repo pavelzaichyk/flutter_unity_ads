@@ -75,7 +75,6 @@ class UnityAds {
         placementIdParameter: placementId,
       };
       final result = await _channel.invokeMethod(showVideoMethod, args);
-      print(result);
       return result;
     } on PlatformException {
       return false;
@@ -109,7 +108,7 @@ enum UnityAdState {
   /// Ad loaded successfully.
   ready,
 
-  /// Some error occurred
+  /// Some error occurred.
   error,
 
   /// Video ad started.

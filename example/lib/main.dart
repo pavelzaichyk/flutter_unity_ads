@@ -14,11 +14,13 @@ class UnityAdsExampleApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Unity Ads Example',
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('Unity Ads Example'),
+      home: SafeArea(
+        child: Scaffold(
+          appBar: AppBar(
+            title: Text('Unity Ads Example'),
+          ),
+          body: UnityAdsExample(),
         ),
-        body: UnityAdsExample(),
       ),
     );
   }
