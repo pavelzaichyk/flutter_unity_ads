@@ -17,7 +17,9 @@
 
 Set your Game id.
 For testing purposes set `testMode` to `true`.
+
 ---
+
 _Android only:_ To change ads behavior in Firebase Test Lab use `firebaseTestLabMode` parameter. Possible values:
 
 Mode | Description 
