@@ -12,6 +12,7 @@ public interface UnityAdsConstants {
     String FIREBASE_TEST_LAB_MODE_PARAMETER = "firebaseTestLabMode";
 
     String PLACEMENT_ID_PARAMETER = "placementId";
+    String SERVER_ID_PARAMETER = "serverId";
     String HEIGHT_PARAMETER = "height";
     String WIDTH_PARAMETER = "width";
 

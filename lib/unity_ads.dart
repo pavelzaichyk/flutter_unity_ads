@@ -62,6 +62,7 @@ class UnityAds {
   /// If true, placement are shown
   static Future<bool> showVideoAd(
       {@required String placementId,
+        String serverId,
       Function(UnityAdState, dynamic) listener}) async {
     try {
       if (listener != null) {
@@ -73,6 +74,7 @@ class UnityAds {
 
       final args = <String, dynamic>{
         placementIdParameter: placementId,
+        serverIdParameter: serverId,
       };
       final result = await _channel.invokeMethod(showVideoMethod, args);
       return result;

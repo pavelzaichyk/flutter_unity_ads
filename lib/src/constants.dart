@@ -10,6 +10,7 @@ const firebaseTestLabModeParameter = "firebaseTestLabMode";
 const placementIdParameter = "placementId";
 const heightParameter = "height";
 const widthParameter = "width";
+const serverIdParameter = "serverId";
 
 const initMethod = "init";
 const isReadyMethod = "isReady";

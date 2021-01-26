@@ -62,6 +62,14 @@ started | Video ad started.
 complete | Video played till the end. Use it to reward the user. 
 skipped | Video ad closed. 
 
+#### Server-to-server redeem callbacks
+
+`UnityAds.showVideoAd` has `serverId` parameter.
+
+To use server-to-server callbacks, you need to set this parameter.
+
+Read more on [unity3d.com](https://unityads.unity3d.com/help/resources/s2s-redeem-callbacks).
+
 ### 3. Show Banner Ad:
 
 ![Banner Ad](https://github.com/pavzay/flutter_unity_ads/raw/master/example/images/banner.gif "Banner Ad")

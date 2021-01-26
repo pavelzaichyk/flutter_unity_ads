@@ -20,8 +20,10 @@ import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
 
 import static com.rebeloid.unity_ads.UnityAdsConstants.PLACEMENT_ID_PARAMETER;
+import static com.rebeloid.unity_ads.UnityAdsConstants.SERVER_ID_PARAMETER;
 
 import com.rebeloid.unity_ads.banner.BannerAdFactory;
+import com.unity3d.ads.metadata.PlayerMetaData;
 
 /**
  * Unity Ads Plugin
@@ -128,11 +130,18 @@ public class UnityAdsPlugin implements FlutterPlugin, MethodCallHandler, Activit
 
     private boolean showVideo(Map<?, ?> args) {
         final String placementId = (String) args.get(PLACEMENT_ID_PARAMETER);
-        if (UnityAds.isReady(placementId)) {
-            UnityAds.show(activity, placementId);
-            return true;
+        if (!UnityAds.isReady(placementId)) {
+            return false;
         }
-        return false;
+
+        final String serverId = (String) args.get(SERVER_ID_PARAMETER);
+        if (serverId != null) {
+            PlayerMetaData playerMetaData = new PlayerMetaData(context);
+            playerMetaData.setServerId(serverId);
+            playerMetaData.commit();
+        }
+        UnityAds.show(activity, placementId);
+        return true;
     }
 
 }

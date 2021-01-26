@@ -9,6 +9,7 @@ struct UnityAdsConstants {
     static let FIREBASE_TEST_LAB_MODE_PARAMETER = "firebaseTestLabMode";
     
     static let PLACEMENT_ID_PARAMETER = "placementId";
+    static let SERVER_ID_PARAMETER = "serverId";
     static let HEIGHT_PARAMETER = "height";
     static let WIDTH_PARAMETER = "width";
     

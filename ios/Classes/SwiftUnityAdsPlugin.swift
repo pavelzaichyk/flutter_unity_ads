@@ -49,10 +49,17 @@ public class SwiftUnityAdsPlugin: NSObject, FlutterPlugin {
     
     static func showVideo(_ args: NSDictionary) -> Bool {
         let placementId = args[UnityAdsConstants.PLACEMENT_ID_PARAMETER] as! String
-        if (UnityAds.isReady(placementId)) {
-            UnityAds.show(viewController, placementId: placementId)
-            return true
+        if (!UnityAds.isReady(placementId)) {
+            return false
         }
-        return false
+        
+        let serverId = args[UnityAdsConstants.SERVER_ID_PARAMETER] as? String
+        if (serverId != nil) {
+            let playerMetaData = UADSPlayerMetaData()
+            playerMetaData.setServerId(serverId)
+            playerMetaData.commit()
+        }
+        UnityAds.show(viewController, placementId: placementId)
+        return true
     }
 }
