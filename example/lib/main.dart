@@ -14,12 +14,12 @@ class UnityAdsExampleApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Unity Ads Example',
-      home: SafeArea(
-        child: Scaffold(
-          appBar: AppBar(
-            title: Text('Unity Ads Example'),
-          ),
-          body: UnityAdsExample(),
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('Unity Ads Example'),
+        ),
+        body: SafeArea(
+          child: UnityAdsExample(),
         ),
       ),
     );
@@ -56,7 +56,7 @@ class _UnityAdsExampleState extends State<UnityAdsExample> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              RaisedButton(
+              ElevatedButton(
                 onPressed: () {
                   setState(() {
                     _showBanner = !_showBanner;
@@ -64,7 +64,7 @@ class _UnityAdsExampleState extends State<UnityAdsExample> {
                 },
                 child: Text(_showBanner ? 'Hide Banner' : 'Show Banner'),
               ),
-              RaisedButton(
+              ElevatedButton(
                 onPressed: () {
                   UnityAds.showVideoAd(
                     placementId: AdManager.rewardedVideoAdPlacementId,
@@ -74,7 +74,7 @@ class _UnityAdsExampleState extends State<UnityAdsExample> {
                 },
                 child: Text('Show Rewarded Video'),
               ),
-              RaisedButton(
+              ElevatedButton(
                 onPressed: () {
                   UnityAds.showVideoAd(
                     placementId: AdManager.interstitialVideoAdPlacementId,
