@@ -1,5 +1,4 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
@@ -18,12 +17,12 @@ class UnityBannerAd extends StatefulWidget {
   /// * placementId
   /// * errorMessage
   /// * errorCode
-  final void Function(BannerAdState, dynamic) listener;
+  final void Function(BannerAdState, dynamic)? listener;
 
   /// This widget is used to contain Banner Ads.
   const UnityBannerAd({
-    Key key,
-    @required this.placementId,
+    Key? key,
+    required this.placementId,
     this.size = BannerSize.standard,
     this.listener,
   }) : super(key: key);
@@ -102,12 +101,12 @@ class _UnityBannerAdState extends State<UnityBannerAd> {
           break;
       }
       return;
-    });
+    } as Future<dynamic> Function(MethodCall)?);
   }
 
   void _callListener(BannerAdState result, dynamic arguments) {
     if (widget.listener != null) {
-      widget.listener(result, arguments);
+      widget.listener!(result, arguments);
     }
   }
 }

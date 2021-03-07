@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 
 import 'src/constants.dart';
 
@@ -14,11 +13,11 @@ class UnityAds {
   /// * [gameId] - identifier from Project Settings in Unity Dashboard.
   /// * [testMode] - if true, then test ads are shown.
   /// * [firebaseTestLabMode] - mode of showing ads in Firebase Test Lab.
-  static Future<bool> init({
-    @required String gameId,
+  static Future<bool?> init({
+    required String gameId,
     bool testMode = false,
     FirebaseTestLabMode firebaseTestLabMode = FirebaseTestLabMode.disableAds,
-    Function(UnityAdState, dynamic) listener,
+    Function(UnityAdState, dynamic)? listener,
   }) async {
     Map<String, dynamic> arguments = {
       gameIdParameter: gameId,
@@ -41,7 +40,7 @@ class UnityAds {
   ///
   /// [placementId] placement identifier, as defined in Unity Ads admin tools
   ///  If true, placement is ready to show ads
-  static Future<bool> isReady({@required String placementId}) async {
+  static Future<bool?> isReady({required String placementId}) async {
     try {
       final arguments = <String, dynamic>{
         placementIdParameter: placementId,
@@ -60,10 +59,11 @@ class UnityAds {
   ///
   /// [placementId] placement identifier, as defined in Unity Ads admin tools
   /// If true, placement are shown
-  static Future<bool> showVideoAd(
-      {@required String placementId,
-        String serverId,
-      Function(UnityAdState, dynamic) listener}) async {
+  static Future<bool?> showVideoAd({
+    required String placementId,
+    String? serverId,
+    Function(UnityAdState, dynamic)? listener,
+  }) async {
     try {
       if (listener != null) {
         _channels

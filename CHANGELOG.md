@@ -1,3 +1,7 @@
+## 0.2.0
+
+* Migrated to null safety
+
 ## 0.1.2
 
 * Added serverId parameter for server-to-server redeem callbacks.
