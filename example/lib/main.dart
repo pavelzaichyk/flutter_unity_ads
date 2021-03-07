@@ -1,7 +1,5 @@
-import 'dart:io';
-
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:unity_ads_plugin/ad/unity_banner_ad.dart';
 import 'package:unity_ads_plugin/unity_ads.dart';
 
 void main() {
@@ -101,14 +99,13 @@ class _UnityAdsExampleState extends State<UnityAdsExample> {
 
 class AdManager {
   static String get gameId {
-    if (Platform.isAndroid) {
+    if (defaultTargetPlatform == TargetPlatform.android) {
       return 'your_android_game_id';
     }
-    if (Platform.isIOS) {
+    if (defaultTargetPlatform == TargetPlatform.iOS) {
       return 'your_ios_game_id';
-    } else {
-      throw new UnsupportedError('Unsupported platform');
     }
+    return '';
   }
 
   static String get bannerAdPlacementId {
