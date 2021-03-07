@@ -1,8 +1,10 @@
-import 'dart:async';
+library unity_ads;
 
 import 'package:flutter/services.dart';
 
 import 'src/constants.dart';
+
+export 'ad/unity_banner_ad.dart';
 
 /// Unity Ads plugin for Flutter applications.
 class UnityAds {
