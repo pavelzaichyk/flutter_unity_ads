@@ -100,8 +100,8 @@ class _UnityBannerAdState extends State<UnityBannerAd> {
           _callListener(BannerAdState.clicked, call.arguments);
           break;
       }
-      return;
-    } as Future<dynamic> Function(MethodCall)?);
+      return Future.value(null);
+    });
   }
 
   void _callListener(BannerAdState result, dynamic arguments) {
