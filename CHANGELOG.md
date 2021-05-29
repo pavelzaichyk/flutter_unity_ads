@@ -1,3 +1,8 @@
+## 0.2.2
+
+* Minor fixes.
+* Switched unity ads version to 3.7.2.
+
 ## 0.2.1
 
 * Minor fixes

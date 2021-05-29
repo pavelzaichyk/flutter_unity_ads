@@ -82,10 +82,10 @@ class _UnityBannerAdState extends State<UnityBannerAd> {
     return Container();
   }
 
-  void _onBannerAdViewCreated(int id) async {
+  void _onBannerAdViewCreated(int id) {
     final channel = MethodChannel('${bannerAdChannel}_$id');
 
-    channel.setMethodCallHandler((call) {
+    channel.setMethodCallHandler((call) async {
       switch (call.method) {
         case bannerErrorMethod:
           _callListener(BannerAdState.error, call.arguments);
@@ -100,8 +100,7 @@ class _UnityBannerAdState extends State<UnityBannerAd> {
           _callListener(BannerAdState.clicked, call.arguments);
           break;
       }
-      return;
-    } as Future<dynamic> Function(MethodCall)?);
+    });
   }
 
   void _callListener(BannerAdState result, dynamic arguments) {
