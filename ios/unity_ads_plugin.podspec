@@ -5,7 +5,7 @@
 Pod::Spec.new do |s|
   s.name             = 'unity_ads_plugin'
   s.version          = '0.0.1'
-  s.summary          = 'Flutter unity ads plugin.'
+  s.summary          = 'Unity Ads plugin for Flutter Applications.'
   s.description      = <<-DESC
 Flutter unity ads plugin.
                        DESC
@@ -17,7 +17,7 @@ Flutter unity ads plugin.
   s.public_header_files = 'Classes/**/*.h'
   s.dependency 'Flutter'
   s.platform = :ios, '8.0'
-  s.dependency 'UnityAds', '3.6.0'
+  s.dependency 'UnityAds', '3.7.2'
 
   # Flutter.framework does not contain a i386 slice.
   # s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'i386' }
