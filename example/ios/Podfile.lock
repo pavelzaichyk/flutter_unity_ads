@@ -2,8 +2,8 @@ PODS:
   - Flutter (1.0.0)
   - unity_ads_plugin (0.0.1):
     - Flutter
-    - UnityAds (= 3.7.2)
-  - UnityAds (3.7.2)
+    - UnityAds (= 3.7.5)
+  - UnityAds (3.7.5)
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
@@ -21,8 +21,8 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Flutter: 434fef37c0980e73bb6479ef766c45957d4b510c
-  unity_ads_plugin: 5ba73be920777b4b486b1ea6a007a6c244b95a6d
-  UnityAds: cca7e2191591e0bb5d45231f012a2c8722c3e686
+  unity_ads_plugin: a719f4f6b2b1c538c9430e6ce7ca278b3a9932a9
+  UnityAds: 9adbfd8ccc008e4e3e7b1bcf5666a126df4f1a8e
 
 PODFILE CHECKSUM: aafe91acc616949ddb318b77800a7f51bffa2a4c
 
