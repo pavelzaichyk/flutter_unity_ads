@@ -92,3 +92,10 @@ State | Description
 loaded | Banner is loaded.
 clicked | Banner is clicked.
 error | Error during loading banner.
+
+## Donate
+
+If you found this plugin helpful and would like to thank me:
+
+[![Buy Me A Coffee](https://img.shields.io/badge/-Buy%20me%20a%20coffee-FFDD00)](https://www.buymeacoffee.com/rebeloid)
+[![PayPal](https://img.shields.io/badge/-PayPal-066BB7)](https://paypal.me/pavelzaichyk)

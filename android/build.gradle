@@ -38,5 +38,5 @@ android {
 }
 
 dependencies {
-    implementation group: 'com.unity3d.ads', name: 'unity-ads', version: '3.7.2'
+    implementation group: 'com.unity3d.ads', name: 'unity-ads', version: '3.7.5'
 }
