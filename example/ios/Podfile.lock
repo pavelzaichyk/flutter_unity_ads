@@ -20,8 +20,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/unity_ads_plugin/ios"
 
 SPEC CHECKSUMS:
-  Flutter: 434fef37c0980e73bb6479ef766c45957d4b510c
-  unity_ads_plugin: a719f4f6b2b1c538c9430e6ce7ca278b3a9932a9
+  Flutter: 50d75fe2f02b26cc09d224853bb45737f8b3214a
+  unity_ads_plugin: 695d65ae5624ada2475e32a96c2ee5dfe6a1fb87
   UnityAds: 9adbfd8ccc008e4e3e7b1bcf5666a126df4f1a8e
 
 PODFILE CHECKSUM: aafe91acc616949ddb318b77800a7f51bffa2a4c

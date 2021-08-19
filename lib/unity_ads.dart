@@ -8,7 +8,7 @@ export 'ad/unity_banner_ad.dart';
 
 /// Unity Ads plugin for Flutter applications.
 class UnityAds {
-  static final MethodChannel _channel = const MethodChannel(mainChannel);
+  static const MethodChannel _channel = MethodChannel(mainChannel);
 
   /// Initialize Unity Ads.
   ///
@@ -55,7 +55,7 @@ class UnityAds {
     }
   }
 
-  static Map<String, MethodChannel> _channels = Map();
+  static final Map<String, MethodChannel> _channels = {};
 
   /// Show video ad, if ready.
   ///

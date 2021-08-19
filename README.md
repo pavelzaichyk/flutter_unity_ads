@@ -1,8 +1,24 @@
-# unity_ads_plugin
+# Unity Ads Plugin
 
 [![Pub](https://img.shields.io/pub/v/unity_ads_plugin.svg)](https://pub.dev/packages/unity_ads_plugin)
+[![License](https://img.shields.io/github/license/pavzay/flutter_unity_ads)](https://github.com/pavzay/flutter_unity_ads/blob/master/LICENSE)
+[![Pub likes](https://badgen.net/pub/likes/unity_ads_plugin)](https://pub.dev/packages/unity_ads_plugin/score)
+[![Pub popularity](https://badgen.net/pub/popularity/unity_ads_plugin)](https://pub.dev/packages/unity_ads_plugin/score)
+[![Pub points](https://badgen.net/pub/points/unity_ads_plugin)](https://pub.dev/packages/unity_ads_plugin/score)
+[![Flutter platform](https://badgen.net/pub/flutter-platform/unity_ads_plugin)](https://pub.dev/packages/unity_ads_plugin)
+[![GitHub popularity](https://img.shields.io/github/stars/pavzay/flutter_unity_ads?logo=github&logoColor=white)](https://github.com/pavzay/flutter_unity_ads)
+
+
+[![Buy Me A Coffee](https://img.shields.io/badge/Donate-Buy%20me%20a%20coffee-FFDD00?logo=buymeacoffee)](https://www.buymeacoffee.com/rebeloid)
+[![PayPal](https://img.shields.io/badge/Donate-PayPal-066BB7?logo=paypal)](https://paypal.me/pavelzaichyk)
 
 [Unity Ads](https://unity.com/solutions/unity-ads) plugin for Flutter Applications. This plugin is able to display Unity Banner Ads and Unity Video Ads.
+
+- [Getting Started](#getting-started)
+    - [1. Initialization](#1-initialization)
+    - [2. Show Rewarded/Interstitial Video Ad](#2-show-rewardedinterstitial-video-ad)
+    - [3. Show Banner Ad](#3-show-banner-ad)
+- [Donate](#donate)
 
 ## Getting Started
 
@@ -97,5 +113,5 @@ error | Error during loading banner.
 
 If you found this plugin helpful and would like to thank me:
 
-[![Buy Me A Coffee](https://img.shields.io/badge/-Buy%20me%20a%20coffee-FFDD00)](https://www.buymeacoffee.com/rebeloid)
-[![PayPal](https://img.shields.io/badge/-PayPal-066BB7)](https://paypal.me/pavelzaichyk)
+[![Buy Me A Coffee](https://img.shields.io/badge/Donate-Buy%20me%20a%20coffee-FFDD00?logo=buymeacoffee)](https://www.buymeacoffee.com/rebeloid)
+[![PayPal](https://img.shields.io/badge/Donate-PayPal-066BB7?logo=paypal)](https://paypal.me/pavelzaichyk)
