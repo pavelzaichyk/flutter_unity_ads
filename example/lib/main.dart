@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:unity_ads_plugin/unity_ads.dart';
 
 void main() {
-  runApp(UnityAdsExampleApp());
+  runApp(const UnityAdsExampleApp());
 }
 
 class UnityAdsExampleApp extends StatelessWidget {
+  const UnityAdsExampleApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -14,9 +16,9 @@ class UnityAdsExampleApp extends StatelessWidget {
       title: 'Unity Ads Example',
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Unity Ads Example'),
+          title: const Text('Unity Ads Example'),
         ),
-        body: SafeArea(
+        body: const SafeArea(
           child: UnityAdsExample(),
         ),
       ),
@@ -25,6 +27,8 @@ class UnityAdsExampleApp extends StatelessWidget {
 }
 
 class UnityAdsExample extends StatefulWidget {
+  const UnityAdsExample({Key? key}) : super(key: key);
+
   @override
   _UnityAdsExampleState createState() => _UnityAdsExampleState();
 }
@@ -45,7 +49,7 @@ class _UnityAdsExampleState extends State<UnityAdsExample> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: double.infinity,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -70,7 +74,7 @@ class _UnityAdsExampleState extends State<UnityAdsExample> {
                         print('Rewarded Video Listener: $state => $args'),
                   );
                 },
-                child: Text('Show Rewarded Video'),
+                child: const Text('Show Rewarded Video'),
               ),
               ElevatedButton(
                 onPressed: () {
@@ -80,7 +84,7 @@ class _UnityAdsExampleState extends State<UnityAdsExample> {
                         print('Interstitial Video Listener: $state => $args'),
                   );
                 },
-                child: Text('Show Interstitial Video'),
+                child: const Text('Show Interstitial Video'),
               ),
             ],
           ),

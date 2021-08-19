@@ -37,7 +37,7 @@ class _UnityBannerAdState extends State<UnityBannerAd> {
   @override
   Widget build(BuildContext context) {
     if (defaultTargetPlatform == TargetPlatform.android) {
-      return Container(
+      return SizedBox(
         height: widget.size.height + 0.0,
         width: widget.size.width + 0.0,
         child: OverflowBox(
@@ -51,14 +51,14 @@ class _UnityBannerAdState extends State<UnityBannerAd> {
               widthParameter: widget.size.width,
               heightParameter: widget.size.height,
             },
-            creationParamsCodec: StandardMessageCodec(),
+            creationParamsCodec: const StandardMessageCodec(),
             onPlatformViewCreated: _onBannerAdViewCreated,
           ),
         ),
       );
     }
     if (defaultTargetPlatform == TargetPlatform.iOS) {
-      return Container(
+      return SizedBox(
         height: widget.size.height + 0.0,
         width: widget.size.width + 0.0,
         child: OverflowBox(
@@ -72,7 +72,7 @@ class _UnityBannerAdState extends State<UnityBannerAd> {
               widthParameter: widget.size.width,
               heightParameter: widget.size.height,
             },
-            creationParamsCodec: StandardMessageCodec(),
+            creationParamsCodec: const StandardMessageCodec(),
             onPlatformViewCreated: _onBannerAdViewCreated,
           ),
         ),
