@@ -1,5 +1,6 @@
 package com.rebeloid.unity_ads.banner;
 
+import com.rebeloid.unity_ads.UnityAdsConstants;
 import com.unity3d.services.banners.BannerErrorInfo;
 import com.unity3d.services.banners.BannerView;
 
@@ -7,8 +8,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import io.flutter.plugin.common.MethodChannel;
-
-import com.rebeloid.unity_ads.UnityAdsConstants;
 
 class BannerAdListener implements BannerView.IListener {
     private final MethodChannel channel;
@@ -46,14 +45,8 @@ class BannerAdListener implements BannerView.IListener {
     public void onBannerFailedToLoad(BannerView bannerView, BannerErrorInfo errorInfo) {
         Map<String, String> arguments = new HashMap<>();
         arguments.put(UnityAdsConstants.PLACEMENT_ID_PARAMETER, bannerView.getPlacementId());
-
-        if (errorInfo.errorCode != null) {
-            arguments.put("errorCode", errorInfo.errorCode.toString());
-        }
-
-        if (errorInfo.errorMessage != null) {
-            arguments.put("errorMessage", errorInfo.errorMessage);
-        }
+        arguments.put(UnityAdsConstants.ERROR_CODE_PARAMETER, convertError(errorInfo));
+        arguments.put(UnityAdsConstants.ERROR_MESSAGE_PARAMETER, errorInfo.errorMessage);
 
         channel.invokeMethod(UnityAdsConstants.BANNER_ERROR_METHOD, arguments);
     }
@@ -64,4 +57,20 @@ class BannerAdListener implements BannerView.IListener {
     @Override
     public void onBannerLeftApplication(BannerView bannerView) {
     }
+
+    private String convertError(BannerErrorInfo errorInfo) {
+        switch (errorInfo.errorCode) {
+            case UNKNOWN:
+                return "unknown";
+            case NATIVE_ERROR:
+                return "native";
+            case WEBVIEW_ERROR:
+                return "webView";
+            case NO_FILL:
+                return "noFill";
+            default:
+                return "";
+        }
+    }
+
 }

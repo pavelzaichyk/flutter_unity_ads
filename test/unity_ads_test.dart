@@ -19,6 +19,6 @@ void main() {
   });
 
   test('init', () async {
-    expect(await UnityAds.init(gameId: 'test_game_id'), true);
+    await UnityAds.init(gameId: 'test_game_id');
   });
 }

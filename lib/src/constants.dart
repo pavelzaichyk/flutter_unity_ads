@@ -8,20 +8,31 @@ const testModeParameter = "testMode";
 const firebaseTestLabModeParameter = "firebaseTestLabMode";
 
 const placementIdParameter = "placementId";
+const errorCodeParameter = "errorCode";
+const errorMessageParameter = "errorMessage";
+
+//init
+const initMethod = "init";
+const initCompleteMethod = "initComplete";
+const initFailedMethod = "initFailed";
+
+//load
+const loadMethod = 'load';
+const loadCompleteMethod = "loadComplete";
+const loadFailedMethod = "loadFailed";
+
+//show
+const showVideoMethod = "showVideo";
+const serverIdParameter = "serverId";
+const showCompleteMethod = "showComplete";
+const showFailedMethod = "showFailed";
+const showStartMethod = "showStart";
+const showSkippedMethod = "showSkipped";
+const showClickMethod = "showClick";
+
+//banner
 const heightParameter = "height";
 const widthParameter = "width";
-const serverIdParameter = "serverId";
-
-const initMethod = "init";
-const isReadyMethod = "isReady";
-const showVideoMethod = "showVideo";
-
-const readyMethod = "ready";
-const startMethod = "start";
-const completeMethod = "complete";
-const skippedMethod = "skipped";
-const errorMethod = "error";
-
 const bannerErrorMethod = "banner_error";
 const bannerLoadedMethod = "banner_loaded";
 const bannerClickedMethod = "banner_clicked";
