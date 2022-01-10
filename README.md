@@ -6,7 +6,6 @@
 [![Pub popularity](https://badgen.net/pub/popularity/unity_ads_plugin)](https://pub.dev/packages/unity_ads_plugin/score)
 [![Pub points](https://badgen.net/pub/points/unity_ads_plugin)](https://pub.dev/packages/unity_ads_plugin/score)
 [![Flutter platform](https://badgen.net/pub/flutter-platform/unity_ads_plugin)](https://pub.dev/packages/unity_ads_plugin)
-[![GitHub popularity](https://img.shields.io/github/stars/pavzay/flutter_unity_ads?logo=github&logoColor=white)](https://github.com/pavzay/flutter_unity_ads)
 
 
 [![Buy Me A Coffee](https://img.shields.io/badge/Donate-Buy%20me%20a%20coffee-FFDD00?logo=buymeacoffee)](https://www.buymeacoffee.com/rebeloid)
@@ -25,13 +24,14 @@
 ### 1. Initialization:
 
 ```dart
-    UnityAds.init(
-      gameId: 'game_id',
-      listener: (state, args) => print('Init Listener: $state => $args'),
-    );
+UnityAds.init(
+  gameId: 'PROJECT_GAME_ID',
+  onComplete: () => print('Initialization Complete'),
+  onFailed: (error, message) => print('Initialization Failed: $error $message'),
+);
 ```
 
-Set your Game id.
+Set your Game ID.
 For testing purposes set `testMode` to `true`.
 
 ---
@@ -49,34 +49,26 @@ showAds | Real ads are displayed, if testMode is false.
 ![Rewarded Video Ad](https://github.com/pavzay/flutter_unity_ads/raw/master/example/images/rewarded.gif "Rewarded Video Ad")
 ![Interstitial Video Ad](https://github.com/pavzay/flutter_unity_ads/raw/master/example/images/interstitial.gif "Interstitial Video Ad")
 
+Load a video ad before show it.
+
 ```dart
-UnityAds.showVideoAd(
-  placementId: 'video_placement_id',
-  listener: (state, args) {
-    if (state == UnityAdState.complete) {
-      print('User watched a video. User should get a reward!');
-    } else if (state == UnityAdState.skipped) {
-      print('User cancel video.');
-    }
-  },
+UnityAds.load(
+  placementId: 'PLACEMENT_ID',
+  onComplete: (placementId) => print('Load Complete $placementId'),
+  onFailed: (placementId, error, message) => print('Load Failed $placementId: $error $message'),
 );
 ```
 
-Check if the video ad is ready:
-
 ```dart
-UnityAds.isReady(placementId: 'video_placement_id');
+UnityAds.showVideoAd(
+  placementId: 'PLACEMENT_ID',
+  onStart: (placementId) => print('Video Ad $placementId started'),
+  onClick: (placementId) => print('Video Ad $placementId click'),
+  onSkipped: (placementId) => print('Video Ad $placementId skipped'),
+  onComplete: (placementId) => print('Video Ad $placementId completed'),
+  onFailed: (placementId, error, message) => print('Video Ad $placementId failed: $error $message'),
+);
 ```
-
-Possible unity ad state:
-
-State | Description 
---- | --- 
-ready | Ad loaded successfully. 
-error | Some error occurred. 
-started | Video ad started. 
-complete | Video played till the end. Use it to reward the user. 
-skipped | Video ad closed. 
 
 #### Server-to-server redeem callbacks
 
@@ -84,7 +76,7 @@ skipped | Video ad closed.
 
 To use server-to-server callbacks, you need to set this parameter.
 
-Read more on [unity3d.com](https://unityads.unity3d.com/help/resources/s2s-redeem-callbacks).
+Read more on [docs.unity.com](https://docs.unity.com/ads/ImplementingS2SRedeemCallbacks.htm).
 
 ### 3. Show Banner Ad:
 
@@ -94,20 +86,12 @@ Place `UnityBannerAd` widget in your app.
 
 ```dart
 UnityBannerAd(
-  placementId: "banner_placement_id",
-  listener: (state, args) {
-    print('Banner Listener: $state => $args');
-  },
+  placementId: 'PLACEMENT_ID',
+  onLoad: (placementId) => print('Banner loaded: $placementId'),
+  onClick: (placementId) => print('Banner clicked: $placementId'),
+  onFailed: (placementId, error, message) => print('Banner Ad $placementId failed: $error $message'),
 )
 ```
-
-Possible unity banner ad state:
-
-State | Description 
---- | --- 
-loaded | Banner is loaded.
-clicked | Banner is clicked.
-error | Error during loading banner.
 
 ## Donate
 

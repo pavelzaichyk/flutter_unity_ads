@@ -7,26 +7,25 @@ public class SwiftUnityAdsPlugin: NSObject, FlutterPlugin {
     
     public static func register(with registrar: FlutterPluginRegistrar) {
         viewController =
-            (UIApplication.shared.delegate?.window??.rootViewController)!;
+        (UIApplication.shared.delegate?.window??.rootViewController)!;
         let messenger = registrar.messenger()
         
+        let placementChannels = [String: FlutterMethodChannel]()
         let channel = FlutterMethodChannel(name: UnityAdsConstants.MAIN_CHANNEL, binaryMessenger: messenger)
         channel.setMethodCallHandler({
             (call: FlutterMethodCall, result: @escaping FlutterResult) -> Void in
             let args = call.arguments as! NSDictionary
             switch call.method {
-                case UnityAdsConstants.INIT_METHOD:
-                    result(initialize(args))
-                case UnityAdsConstants.IS_READY_METHOD:
-                    result(isReady(args))
-                case UnityAdsConstants.SHOW_VIDEO_METHOD:
-                    result(showVideo(args))
-                default:
-                    result(FlutterMethodNotImplemented)
+            case UnityAdsConstants.INIT_METHOD:
+                result(initialize(args, channel: channel))
+            case UnityAdsConstants.LOAD_METHOD:
+                result(load(args, messenger: messenger, placementChannels: placementChannels))
+            case UnityAdsConstants.SHOW_VIDEO_METHOD:
+                result(showVideo(args, messenger: messenger, placementChannels: placementChannels))
+            default:
+                result(FlutterMethodNotImplemented)
             }
         })
-        
-        UnityAds.add(UnityAdsListener(messenger: messenger, defaultChannel: channel))
         
         registrar.register(
             BannerAdFactory(messenger: messenger),
@@ -35,31 +34,28 @@ public class SwiftUnityAdsPlugin: NSObject, FlutterPlugin {
         
     }
     
-    static func initialize(_ args: NSDictionary) -> Bool {
+    static func initialize(_ args: NSDictionary, channel: FlutterMethodChannel) -> Bool {
         let gameId = args[UnityAdsConstants.GAME_ID_PARAMETER] as! String
         let testMode = args[UnityAdsConstants.TEST_MODE_PARAMETER] as! Bool
-        UnityAds.initialize(gameId, testMode: testMode)
+        UnityAds.initialize(gameId, testMode: testMode, initializationDelegate: UnityAdsInitializationListener(channel: channel))
         return true
     }
     
-    static func isReady(_ args: NSDictionary) -> Bool {
+    static func load(_ args: NSDictionary, messenger: FlutterBinaryMessenger, placementChannels: [String: FlutterMethodChannel]) -> Bool {
         let placementId = args[UnityAdsConstants.PLACEMENT_ID_PARAMETER] as! String
-        return UnityAds.isReady(placementId)
+        UnityAds.load(placementId, loadDelegate: UnityAdsLoadListener(messenger: messenger, placementChannels: placementChannels))
+        return true
     }
     
-    static func showVideo(_ args: NSDictionary) -> Bool {
+    static func showVideo(_ args: NSDictionary, messenger: FlutterBinaryMessenger, placementChannels: [String: FlutterMethodChannel]) -> Bool {
         let placementId = args[UnityAdsConstants.PLACEMENT_ID_PARAMETER] as! String
-        if (!UnityAds.isReady(placementId)) {
-            return false
-        }
-        
         let serverId = args[UnityAdsConstants.SERVER_ID_PARAMETER] as? String
         if (serverId != nil) {
             let playerMetaData = UADSPlayerMetaData()
             playerMetaData.setServerId(serverId)
             playerMetaData.commit()
         }
-        UnityAds.show(viewController, placementId: placementId)
+        UnityAds.show(viewController, placementId: placementId, showDelegate: UnityAdsShowListener(messenger: messenger, placementChannels: placementChannels))
         return true
     }
 }

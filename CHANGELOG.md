@@ -1,3 +1,8 @@
+## 0.3.0
+
+* Switched unity ads version to 4.0.0.
+* Changed API. Added error handling. Added preload ads functionality.
+
 ## 0.2.4
 
 * Minor fixes.

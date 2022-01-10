@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
-import '../src/constants.dart';
+import 'constants.dart';
 
 class UnityBannerAd extends StatefulWidget {
   /// Unity Ad Placement ID
@@ -11,20 +11,25 @@ class UnityBannerAd extends StatefulWidget {
   /// Size of the banner ad.
   final BannerSize size;
 
-  /// The banner ad listener.
-  ///
-  /// The information can contain:
-  /// * placementId
-  /// * errorMessage
-  /// * errorCode
-  final void Function(BannerAdState, dynamic)? listener;
+  /// Called when the banner is loaded and ready to be placed in the view hierarchy.
+  final void Function(String placementId)? onLoad;
+
+  /// Called when the user clicks the banner.
+  final void Function(String placementId)? onClick;
+
+  /// Called when unity ads banner encounters an error.
+  final void Function(
+          String placementId, UnityAdsBannerError error, String errorMessage)?
+      onFailed;
 
   /// This widget is used to contain Banner Ads.
   const UnityBannerAd({
     Key? key,
     required this.placementId,
     this.size = BannerSize.standard,
-    this.listener,
+    this.onLoad,
+    this.onClick,
+    this.onFailed,
   }) : super(key: key);
 
   @override
@@ -88,25 +93,29 @@ class _UnityBannerAdState extends State<UnityBannerAd> {
     channel.setMethodCallHandler((call) async {
       switch (call.method) {
         case bannerErrorMethod:
-          _callListener(BannerAdState.error, call.arguments);
+          widget.onFailed?.call(
+            call.arguments[placementIdParameter],
+            _bannerErrorFromString(call.arguments[errorCodeParameter]),
+            call.arguments[errorMessageParameter],
+          );
           break;
         case bannerLoadedMethod:
           setState(() {
             _isLoaded = true;
           });
-          _callListener(BannerAdState.loaded, call.arguments);
+          widget.onLoad?.call(call.arguments[placementIdParameter]);
           break;
         case bannerClickedMethod:
-          _callListener(BannerAdState.clicked, call.arguments);
+          widget.onClick?.call(call.arguments[placementIdParameter]);
           break;
       }
     });
   }
 
-  void _callListener(BannerAdState result, dynamic arguments) {
-    if (widget.listener != null) {
-      widget.listener!(result, arguments);
-    }
+  static UnityAdsBannerError _bannerErrorFromString(String error) {
+    return UnityAdsBannerError.values.firstWhere(
+        (e) => error == e.toString().split('.').last,
+        orElse: () => UnityAdsBannerError.unknown);
   }
 }
 
@@ -131,4 +140,15 @@ enum BannerAdState {
 
   /// Error during loading banner
   error,
+}
+
+enum UnityAdsBannerError {
+  native,
+
+  webView,
+
+  noFill,
+
+  /// Unknown error
+  unknown
 }

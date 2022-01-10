@@ -1,13 +1,19 @@
 package com.rebeloid.unity_ads;
 
+import static com.rebeloid.unity_ads.UnityAdsConstants.PLACEMENT_ID_PARAMETER;
+import static com.rebeloid.unity_ads.UnityAdsConstants.SERVER_ID_PARAMETER;
+
 import android.app.Activity;
 import android.content.Context;
 import android.provider.Settings;
 
 import androidx.annotation.NonNull;
 
+import com.rebeloid.unity_ads.banner.BannerAdFactory;
 import com.unity3d.ads.UnityAds;
+import com.unity3d.ads.metadata.PlayerMetaData;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
@@ -19,12 +25,6 @@ import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
 
-import static com.rebeloid.unity_ads.UnityAdsConstants.PLACEMENT_ID_PARAMETER;
-import static com.rebeloid.unity_ads.UnityAdsConstants.SERVER_ID_PARAMETER;
-
-import com.rebeloid.unity_ads.banner.BannerAdFactory;
-import com.unity3d.ads.metadata.PlayerMetaData;
-
 /**
  * Unity Ads Plugin
  */
@@ -32,7 +32,8 @@ public class UnityAdsPlugin implements FlutterPlugin, MethodCallHandler, Activit
     private MethodChannel channel;
     private Context context;
     private Activity activity;
-
+    private Map<String, MethodChannel> placementChannels;
+    private BinaryMessenger binaryMessenger;
     private BannerAdFactory bannerAdFactory;
 
     @Override
@@ -40,8 +41,8 @@ public class UnityAdsPlugin implements FlutterPlugin, MethodCallHandler, Activit
         channel = new MethodChannel(flutterPluginBinding.getBinaryMessenger(), UnityAdsConstants.MAIN_CHANNEL);
         channel.setMethodCallHandler(this);
         context = flutterPluginBinding.getApplicationContext();
-        BinaryMessenger binaryMessenger = flutterPluginBinding.getBinaryMessenger();
-        UnityAds.addListener(new UnityAdsListener(channel, binaryMessenger));
+        binaryMessenger = flutterPluginBinding.getBinaryMessenger();
+        placementChannels = new HashMap<>();
 
         bannerAdFactory = new BannerAdFactory(binaryMessenger);
         flutterPluginBinding.getPlatformViewRegistry()
@@ -50,19 +51,20 @@ public class UnityAdsPlugin implements FlutterPlugin, MethodCallHandler, Activit
 
     @Override
     public void onMethodCall(@NonNull MethodCall call, @NonNull Result result) {
+        Map<?, ?> arguments = (Map<?, ?>) call.arguments;
 
         if (call.method.equals(UnityAdsConstants.INIT_METHOD)) {
-            result.success(initialize((Map<?, ?>) call.arguments));
+            result.success(initialize(arguments));
             return;
         }
 
-        if (call.method.equals(UnityAdsConstants.IS_READY_METHOD)) {
-            result.success(isReady((Map<?, ?>) call.arguments));
+        if (call.method.equals(UnityAdsConstants.LOAD_METHOD)) {
+            result.success(load(arguments));
             return;
         }
 
         if (call.method.equals(UnityAdsConstants.SHOW_VIDEO_METHOD)) {
-            result.success(showVideo((Map<?, ?>) call.arguments));
+            result.success(showVideo(arguments));
             return;
         }
 
@@ -113,7 +115,7 @@ public class UnityAdsPlugin implements FlutterPlugin, MethodCallHandler, Activit
             testMode = false;
         }
 
-        UnityAds.initialize(context, gameId, testMode || firebaseTestMode);
+        UnityAds.initialize(context, gameId, testMode || firebaseTestMode, new UnityAdsInitializationListener(channel));
         return true;
     }
 
@@ -122,17 +124,14 @@ public class UnityAdsPlugin implements FlutterPlugin, MethodCallHandler, Activit
         return "true".equalsIgnoreCase(testLabSetting);
     }
 
-
-    private boolean isReady(Map<?, ?> args) {
+    private boolean load(Map<?, ?> args) {
         final String placementId = (String) args.get(PLACEMENT_ID_PARAMETER);
-        return UnityAds.isReady(placementId);
+        UnityAds.load(placementId, new UnityAdsLoadListener(placementChannels, binaryMessenger));
+        return true;
     }
 
     private boolean showVideo(Map<?, ?> args) {
         final String placementId = (String) args.get(PLACEMENT_ID_PARAMETER);
-        if (!UnityAds.isReady(placementId)) {
-            return false;
-        }
 
         final String serverId = (String) args.get(SERVER_ID_PARAMETER);
         if (serverId != null) {
@@ -140,7 +139,7 @@ public class UnityAdsPlugin implements FlutterPlugin, MethodCallHandler, Activit
             playerMetaData.setServerId(serverId);
             playerMetaData.commit();
         }
-        UnityAds.show(activity, placementId);
+        UnityAds.show(activity, placementId, new UnityAdsShowListener(placementChannels, binaryMessenger));
         return true;
     }
 
