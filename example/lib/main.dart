@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:unity_ads_plugin/unity_ads.dart';
+import 'package:unity_ads_plugin/unity_ads_plugin.dart';
 
 void main() {
   runApp(const UnityAdsExampleApp());
