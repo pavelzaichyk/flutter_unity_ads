@@ -1,7 +1,7 @@
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:unity_ads_plugin/src/constants.dart';
-import 'package:unity_ads_plugin/unity_ads.dart';
+import 'package:unity_ads_plugin/unity_ads_plugin.dart';
 
 void main() {
   const MethodChannel channel = MethodChannel(mainChannel);
