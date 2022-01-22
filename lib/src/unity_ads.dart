@@ -6,7 +6,7 @@ import 'constants.dart';
 class UnityAds {
   static const MethodChannel _channel = MethodChannel(mainChannel);
 
-  static final Map<String, MethodChannel> _channels = {};
+  static final Map<String, _AdMethodChannel> _adChannels = {};
 
   /// Initializes UnityAds. UnityAds should be initialized when app starts.
   ///
@@ -69,43 +69,17 @@ class UnityAds {
     Function(String placementId, UnityAdsLoadError error, String errorMessage)?
         onFailed,
   }) async {
-    _channels
-        .putIfAbsent(
-            placementId, () => MethodChannel('${videoAdChannel}_$placementId'))
-        .setMethodCallHandler(
-            (call) => _loadMethodCall(call, onComplete, onFailed));
+    _adChannels
+        .putIfAbsent(placementId, () => _AdMethodChannel(placementId))
+        .update(
+          onLoadComplete: onComplete,
+          onLoadFailed: onFailed,
+        );
 
     final arguments = <String, dynamic>{
       placementIdParameter: placementId,
     };
     await _channel.invokeMethod(loadMethod, arguments);
-  }
-
-  static Future<dynamic> _loadMethodCall(
-    MethodCall call,
-    Function(String placementId)? onComplete,
-    Function(String placementId, UnityAdsLoadError error, String errorMessage)?
-        onFailed,
-  ) {
-    switch (call.method) {
-      case loadCompleteMethod:
-        onComplete?.call(call.arguments[placementIdParameter]);
-        break;
-      case loadFailedMethod:
-        onFailed?.call(
-          call.arguments[placementIdParameter],
-          _loadErrorFromString(call.arguments[errorCodeParameter]),
-          call.arguments[errorMessageParameter],
-        );
-        break;
-    }
-    return Future.value(true);
-  }
-
-  static UnityAdsLoadError _loadErrorFromString(String error) {
-    return UnityAdsLoadError.values.firstWhere(
-        (e) => error == e.toString().split('.').last,
-        orElse: () => UnityAdsLoadError.unknown);
   }
 
   /// Show an ad using the provided placement ID.
@@ -127,56 +101,21 @@ class UnityAds {
     Function(String placementId, UnityAdsShowError error, String errorMessage)?
         onFailed,
   }) async {
-    _channels
-        .putIfAbsent(
-            placementId, () => MethodChannel('${videoAdChannel}_$placementId'))
-        .setMethodCallHandler((call) => _showMethodCall(
-            call, onStart, onSkipped, onClick, onComplete, onFailed));
+    _adChannels
+        .putIfAbsent(placementId, () => _AdMethodChannel(placementId))
+        .update(
+          onAdStart: onStart,
+          onAdClick: onClick,
+          onAdSkipped: onSkipped,
+          onShowFailed: onFailed,
+          onAdComplete: onComplete,
+        );
 
     final args = <String, dynamic>{
       placementIdParameter: placementId,
       serverIdParameter: serverId,
     };
     await _channel.invokeMethod(showVideoMethod, args);
-  }
-
-  static Future<dynamic> _showMethodCall(
-    MethodCall call,
-    Function(String placementId)? onStart,
-    Function(String placementId)? onSkipped,
-    Function(String placementId)? onClick,
-    Function(String placementId)? onComplete,
-    Function(String placementId, UnityAdsShowError error, String errorMessage)?
-        onFailed,
-  ) {
-    switch (call.method) {
-      case showStartMethod:
-        onStart?.call(call.arguments[placementIdParameter]);
-        break;
-      case showSkippedMethod:
-        onSkipped?.call(call.arguments[placementIdParameter]);
-        break;
-      case showClickMethod:
-        onClick?.call(call.arguments[placementIdParameter]);
-        break;
-      case showCompleteMethod:
-        onComplete?.call(call.arguments[placementIdParameter]);
-        break;
-      case showFailedMethod:
-        onFailed?.call(
-          call.arguments[placementIdParameter],
-          _showErrorFromString(call.arguments[errorCodeParameter]),
-          call.arguments[errorMessageParameter],
-        );
-        break;
-    }
-    return Future.value(true);
-  }
-
-  static UnityAdsShowError _showErrorFromString(String error) {
-    return UnityAdsShowError.values.firstWhere(
-        (e) => error == e.toString().split('.').last,
-        orElse: () => UnityAdsShowError.unknown);
   }
 }
 
@@ -252,4 +191,88 @@ enum UnityAdsShowError {
 
   /// Unknown error
   unknown
+}
+
+class _AdMethodChannel {
+  final MethodChannel channel;
+  Function(String placementId)? onLoadComplete;
+  Function(String placementId, UnityAdsLoadError error, String errorMessage)?
+      onLoadFailed;
+  Function(String placementId)? onAdStart;
+  Function(String placementId)? onAdClick;
+  Function(String placementId)? onAdComplete;
+  Function(String placementId)? onAdSkipped;
+  Function(String placementId, UnityAdsShowError error, String errorMessage)?
+      onShowFailed;
+
+  _AdMethodChannel(String placementId)
+      : channel = MethodChannel('${videoAdChannel}_$placementId') {
+    channel.setMethodCallHandler(_methodCallHandler);
+  }
+
+  void update({
+    Function(String adUnitId)? onLoadComplete,
+    Function(String adUnitId, UnityAdsLoadError error, String errorMessage)?
+        onLoadFailed,
+    Function(String adUnitId)? onAdStart,
+    Function(String adUnitId)? onAdClick,
+    Function(String placementId)? onAdComplete,
+    Function(String placementId)? onAdSkipped,
+    Function(String adUnitId, UnityAdsShowError error, String errorMessage)?
+        onShowFailed,
+  }) {
+    this.onLoadComplete = onLoadComplete ?? this.onLoadComplete;
+    this.onLoadFailed = onLoadFailed ?? this.onLoadFailed;
+    this.onAdStart = onAdStart ?? this.onAdStart;
+    this.onAdClick = onAdClick ?? this.onAdClick;
+    this.onAdComplete = onAdComplete ?? this.onAdComplete;
+    this.onAdSkipped = onAdSkipped ?? this.onAdSkipped;
+    this.onShowFailed = onShowFailed ?? this.onShowFailed;
+  }
+
+  Future _methodCallHandler(MethodCall call) async {
+    switch (call.method) {
+      case loadCompleteMethod:
+        onLoadComplete?.call(call.arguments[placementIdParameter]);
+        break;
+      case loadFailedMethod:
+        onLoadFailed?.call(
+          call.arguments[placementIdParameter],
+          _loadErrorFromString(call.arguments[errorCodeParameter]),
+          call.arguments[errorMessageParameter],
+        );
+        break;
+      case showStartMethod:
+        onAdStart?.call(call.arguments[placementIdParameter]);
+        break;
+      case showSkippedMethod:
+        onAdSkipped?.call(call.arguments[placementIdParameter]);
+        break;
+      case showClickMethod:
+        onAdClick?.call(call.arguments[placementIdParameter]);
+        break;
+      case showCompleteMethod:
+        onAdComplete?.call(call.arguments[placementIdParameter]);
+        break;
+      case showFailedMethod:
+        onShowFailed?.call(
+          call.arguments[placementIdParameter],
+          _showErrorFromString(call.arguments[errorCodeParameter]),
+          call.arguments[errorMessageParameter],
+        );
+        break;
+    }
+  }
+
+  UnityAdsLoadError _loadErrorFromString(String error) {
+    return UnityAdsLoadError.values.firstWhere(
+        (e) => error == e.toString().split('.').last,
+        orElse: () => UnityAdsLoadError.unknown);
+  }
+
+  UnityAdsShowError _showErrorFromString(String error) {
+    return UnityAdsShowError.values.firstWhere(
+        (e) => error == e.toString().split('.').last,
+        orElse: () => UnityAdsShowError.unknown);
+  }
 }

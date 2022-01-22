@@ -1,7 +1,7 @@
 # Unity Ads Plugin
 
 [![Pub](https://img.shields.io/pub/v/unity_ads_plugin.svg)](https://pub.dev/packages/unity_ads_plugin)
-[![License](https://img.shields.io/github/license/pavzay/flutter_unity_ads)](https://github.com/pavzay/flutter_unity_ads/blob/master/LICENSE)
+[![License](https://img.shields.io/github/license/pavelzaichyk/flutter_unity_ads)](https://github.com/pavelzaichyk/flutter_unity_ads/blob/master/LICENSE)
 [![Pub likes](https://badgen.net/pub/likes/unity_ads_plugin)](https://pub.dev/packages/unity_ads_plugin/score)
 [![Pub popularity](https://badgen.net/pub/popularity/unity_ads_plugin)](https://pub.dev/packages/unity_ads_plugin/score)
 [![Pub points](https://badgen.net/pub/points/unity_ads_plugin)](https://pub.dev/packages/unity_ads_plugin/score)
@@ -11,7 +11,9 @@
 [![Buy Me A Coffee](https://img.shields.io/badge/Donate-Buy%20me%20a%20coffee-FFDD00?logo=buymeacoffee)](https://www.buymeacoffee.com/rebeloid)
 [![PayPal](https://img.shields.io/badge/Donate-PayPal-066BB7?logo=paypal)](https://paypal.me/pavelzaichyk)
 
-[Unity Ads](https://unity.com/solutions/unity-ads) plugin for Flutter Applications. This plugin is able to display Unity Banner Ads and Unity Video Ads.
+[Unity Ads](https://docs.unity.com/ads/UnityAdsHome.htm) plugin for Flutter Applications. This plugin is able to display Unity Banner Ads and Unity Video Ads.
+
+> If you want to try [Unity Mediation (Beta)](https://docs.unity.com/mediation/IntroToMediation.htm) use [Unity Mediation plugin](https://pub.dev/packages/unity_mediation) instead of this one.
 
 - [Getting Started](#getting-started)
     - [1. Initialization](#1-initialization)
@@ -46,8 +48,8 @@ showAds | Real ads are displayed, if testMode is false.
 
 ### 2. Show Rewarded/Interstitial Video Ad:
 
-![Rewarded Video Ad](https://github.com/pavzay/flutter_unity_ads/raw/master/example/images/rewarded.gif "Rewarded Video Ad")
-![Interstitial Video Ad](https://github.com/pavzay/flutter_unity_ads/raw/master/example/images/interstitial.gif "Interstitial Video Ad")
+![Rewarded Video Ad](https://i.giphy.com/media/InPCZIuZspVEfmTGga/giphy.gif "Rewarded Video Ad")
+![Interstitial Video Ad](https://i.giphy.com/media/8wEtgrnfLNqUY4mllS/giphy.gif "Interstitial Video Ad")
 
 Load a video ad before show it.
 
@@ -58,6 +60,8 @@ UnityAds.load(
   onFailed: (placementId, error, message) => print('Load Failed $placementId: $error $message'),
 );
 ```
+
+Show a loaded ad.
 
 ```dart
 UnityAds.showVideoAd(
@@ -80,7 +84,7 @@ Read more on [docs.unity.com](https://docs.unity.com/ads/ImplementingS2SRedeemCa
 
 ### 3. Show Banner Ad:
 
-![Banner Ad](https://github.com/pavzay/flutter_unity_ads/raw/master/example/images/banner.gif "Banner Ad")
+![Banner Ad](https://i.giphy.com/media/aQvnz1i8xn6EWO5bo0/giphy.gif "Banner Ad")
 
 Place `UnityBannerAd` widget in your app.
 
