@@ -1,4 +1,5 @@
 import 'package:flutter/services.dart';
+import 'package:unity_ads_plugin/src/privacy_consent.dart';
 
 import 'constants.dart';
 
@@ -116,6 +117,24 @@ class UnityAds {
       serverIdParameter: serverId,
     };
     await _channel.invokeMethod(showVideoMethod, args);
+  }
+
+  /// Pass privacy consent flag to unity sdk.
+  /// * [privacyConsentType] - provacy consent type
+  /// * [value] - flag
+  ///
+  /// Returns true if the flag is set, otherwise false.
+  ///
+  /// Read more about Privacy Consent: https://docs.unity.com/ads/ImplementingDataPrivacy.html
+  static Future<bool> setPrivacyConsent(
+    PrivacyConsentType privacyConsentType,
+    bool value,
+  ) async {
+    final args = <String, dynamic>{
+      privacyConsentValueParameter: value,
+      privacyConsentTypeParameter: privacyConsentType.toString().split('.').last
+    };
+    return await _channel.invokeMethod(privacyConsentSetMethod, args);
   }
 }
 

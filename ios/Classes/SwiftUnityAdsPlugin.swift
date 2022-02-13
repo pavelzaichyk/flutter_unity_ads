@@ -12,6 +12,7 @@ public class SwiftUnityAdsPlugin: NSObject, FlutterPlugin {
         
         let placementChannels = [String: FlutterMethodChannel]()
         let channel = FlutterMethodChannel(name: UnityAdsConstants.MAIN_CHANNEL, binaryMessenger: messenger)
+        let privacyConsent = PrivacyConsent()
         channel.setMethodCallHandler({
             (call: FlutterMethodCall, result: @escaping FlutterResult) -> Void in
             let args = call.arguments as! NSDictionary
@@ -22,6 +23,8 @@ public class SwiftUnityAdsPlugin: NSObject, FlutterPlugin {
                 result(load(args, messenger: messenger, placementChannels: placementChannels))
             case UnityAdsConstants.SHOW_VIDEO_METHOD:
                 result(showVideo(args, messenger: messenger, placementChannels: placementChannels))
+            case UnityAdsConstants.PRIVACY_CONSENT_SET_METHOD:
+                result(privacyConsent.set(args))
             default:
                 result(FlutterMethodNotImplemented)
             }

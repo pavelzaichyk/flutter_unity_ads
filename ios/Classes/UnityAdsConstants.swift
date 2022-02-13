@@ -1,5 +1,5 @@
 struct UnityAdsConstants {
-    static let MAIN_CHANNEL = "unity.ads";
+    static let MAIN_CHANNEL = "com.rebeloid.unity_ads";
     
     static let BANNER_AD_CHANNEL = MAIN_CHANNEL + "/bannerAd";
     static let VIDEO_AD_CHANNEL = MAIN_CHANNEL + "/videoAd";
@@ -35,4 +35,9 @@ struct UnityAdsConstants {
     static let BANNER_ERROR_METHOD = "banner_error";
     static let BANNER_LOADED_METHOD = "banner_loaded";
     static let BANNER_CLICKED_METHOD = "banner_clicked";
+    
+    //privacy consent
+    static let PRIVACY_CONSENT_SET_METHOD = "privacyConsent_set";
+    static let PRIVACY_CONSENT_TYPE_PARAMETER = "privacyConsent_type";
+    static let PRIVACY_CONSENT_VALUE_PARAMETER = "privacyConsent_value";
 }

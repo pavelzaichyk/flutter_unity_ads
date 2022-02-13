@@ -1,4 +1,4 @@
-const mainChannel = 'unity.ads';
+const mainChannel = 'com.rebeloid.unity_ads';
 
 const bannerAdChannel = mainChannel + "/bannerAd";
 const videoAdChannel = mainChannel + "/videoAd";
@@ -36,3 +36,8 @@ const widthParameter = "width";
 const bannerErrorMethod = "banner_error";
 const bannerLoadedMethod = "banner_loaded";
 const bannerClickedMethod = "banner_clicked";
+
+//privacy consent
+const privacyConsentSetMethod = "privacyConsent_set";
+const privacyConsentTypeParameter = "privacyConsent_type";
+const privacyConsentValueParameter = "privacyConsent_value";

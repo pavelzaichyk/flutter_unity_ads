@@ -10,6 +10,7 @@ import android.provider.Settings;
 import androidx.annotation.NonNull;
 
 import com.rebeloid.unity_ads.banner.BannerAdFactory;
+import com.rebeloid.unity_ads.privacy.PrivacyConsent;
 import com.unity3d.ads.UnityAds;
 import com.unity3d.ads.metadata.PlayerMetaData;
 
@@ -35,6 +36,7 @@ public class UnityAdsPlugin implements FlutterPlugin, MethodCallHandler, Activit
     private Map<String, MethodChannel> placementChannels;
     private BinaryMessenger binaryMessenger;
     private BannerAdFactory bannerAdFactory;
+    private PrivacyConsent privacyConsent;
 
     @Override
     public void onAttachedToEngine(@NonNull FlutterPluginBinding flutterPluginBinding) {
@@ -43,6 +45,7 @@ public class UnityAdsPlugin implements FlutterPlugin, MethodCallHandler, Activit
         context = flutterPluginBinding.getApplicationContext();
         binaryMessenger = flutterPluginBinding.getBinaryMessenger();
         placementChannels = new HashMap<>();
+        privacyConsent = new PrivacyConsent();
 
         bannerAdFactory = new BannerAdFactory(binaryMessenger);
         flutterPluginBinding.getPlatformViewRegistry()
@@ -53,22 +56,22 @@ public class UnityAdsPlugin implements FlutterPlugin, MethodCallHandler, Activit
     public void onMethodCall(@NonNull MethodCall call, @NonNull Result result) {
         Map<?, ?> arguments = (Map<?, ?>) call.arguments;
 
-        if (call.method.equals(UnityAdsConstants.INIT_METHOD)) {
-            result.success(initialize(arguments));
-            return;
+        switch (call.method) {
+            case UnityAdsConstants.INIT_METHOD:
+                result.success(initialize(arguments));
+                break;
+            case UnityAdsConstants.LOAD_METHOD:
+                result.success(load(arguments));
+                break;
+            case UnityAdsConstants.SHOW_VIDEO_METHOD:
+                result.success(showVideo(arguments));
+                break;
+            case UnityAdsConstants.PRIVACY_CONSENT_SET_METHOD:
+                result.success(privacyConsent.set(arguments));
+                break;
+            default:
+                result.notImplemented();
         }
-
-        if (call.method.equals(UnityAdsConstants.LOAD_METHOD)) {
-            result.success(load(arguments));
-            return;
-        }
-
-        if (call.method.equals(UnityAdsConstants.SHOW_VIDEO_METHOD)) {
-            result.success(showVideo(arguments));
-            return;
-        }
-
-        result.notImplemented();
     }
 
     @Override
@@ -80,6 +83,7 @@ public class UnityAdsPlugin implements FlutterPlugin, MethodCallHandler, Activit
     public void onAttachedToActivity(@NonNull ActivityPluginBinding binding) {
         activity = binding.getActivity();
         bannerAdFactory.setActivity(activity);
+        privacyConsent.setActivity(activity);
     }
 
     @Override
