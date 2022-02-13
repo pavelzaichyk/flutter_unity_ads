@@ -1,7 +1,7 @@
 package com.rebeloid.unity_ads;
 
 public interface UnityAdsConstants {
-    String MAIN_CHANNEL = "unity.ads";
+    String MAIN_CHANNEL = "com.rebeloid.unity_ads";
 
     String BANNER_AD_CHANNEL = MAIN_CHANNEL + "/bannerAd";
     String VIDEO_AD_CHANNEL = MAIN_CHANNEL + "/videoAd";
@@ -38,4 +38,9 @@ public interface UnityAdsConstants {
     String BANNER_ERROR_METHOD = "banner_error";
     String BANNER_LOADED_METHOD = "banner_loaded";
     String BANNER_CLICKED_METHOD = "banner_clicked";
+
+    //privacy consent
+    String PRIVACY_CONSENT_SET_METHOD = "privacyConsent_set";
+    String PRIVACY_CONSENT_TYPE_PARAMETER = "privacyConsent_type";
+    String PRIVACY_CONSENT_VALUE_PARAMETER = "privacyConsent_value";
 }
