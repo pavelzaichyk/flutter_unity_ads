@@ -1,3 +1,7 @@
+## 0.3.3
+
+* Switched unity ads version to 4.0.1.
+
 ## 0.3.2
 
 * Added API to pass consent flags to the Unity Ads SDK.
