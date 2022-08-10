@@ -33,10 +33,10 @@ class UnityBannerAd extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _UnityBannerAdState createState() => _UnityBannerAdState();
+  UnityBannerAdState createState() => UnityBannerAdState();
 }
 
-class _UnityBannerAdState extends State<UnityBannerAd> {
+class UnityBannerAdState extends State<UnityBannerAd> {
   bool _isLoaded = false;
 
   @override
