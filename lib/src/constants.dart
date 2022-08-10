@@ -1,7 +1,7 @@
 const mainChannel = 'com.rebeloid.unity_ads';
 
-const bannerAdChannel = mainChannel + "/bannerAd";
-const videoAdChannel = mainChannel + "/videoAd";
+const bannerAdChannel = "$mainChannel/bannerAd";
+const videoAdChannel = "$mainChannel/videoAd";
 
 const gameIdParameter = "gameId";
 const testModeParameter = "testMode";
