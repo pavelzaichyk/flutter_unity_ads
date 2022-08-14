@@ -136,6 +136,11 @@ class UnityAds {
     };
     return await _channel.invokeMethod(privacyConsentSetMethod, args);
   }
+
+  /// Returns true if the SDK is initialized successfully, and false if it isn't.
+  static Future<bool> isInitialized() async {
+    return await _channel.invokeMethod(isInitializedMethod);
+  }
 }
 
 enum FirebaseTestLabMode {
@@ -170,7 +175,7 @@ enum UnityAdsLoadError {
   initializeFailed,
 
   /// Error related to environment or internal services
-  internal,
+  internalError,
 
   /// Error related to invalid arguments
   invalidArgument,
@@ -207,6 +212,9 @@ enum UnityAdsShowError {
 
   /// Error related to environment or internal services
   internalError,
+
+  /// Error related to an Ad being unable to show within a specified time frame
+  timeout,
 
   /// Unknown error
   unknown

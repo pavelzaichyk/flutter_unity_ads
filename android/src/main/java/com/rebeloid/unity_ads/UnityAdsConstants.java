@@ -17,6 +17,7 @@ public interface UnityAdsConstants {
     String TEST_MODE_PARAMETER = "testMode";
     String INIT_COMPLETE_METHOD = "initComplete";
     String INIT_FAILED_METHOD = "initFailed";
+    String IS_INITIALIZED_METHOD = "isInitialized";
 
     //load
     String LOAD_METHOD = "load";

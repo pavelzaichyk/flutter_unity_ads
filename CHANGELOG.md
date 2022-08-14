@@ -1,3 +1,9 @@
+## 0.3.6
+
+* Minor fixes.
+* Added `UnityAds.isInitialized()` method to check if the SDK is initialized successfully.
+* Updated example.
+
 ## 0.3.5
 
 * Switched unity ads version to 4.3.0

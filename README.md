@@ -37,6 +37,8 @@ UnityAds.init(
 Set your Game ID.
 For testing purposes set `testMode` to `true`.
 
+`UnityAds.isInitialized()` can be used to check if the SDK is initialized successfully.
+
 ---
 
 _Android only:_ To change ads behavior in Firebase Test Lab use `firebaseTestLabMode` parameter. Possible values:

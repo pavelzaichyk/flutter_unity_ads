@@ -35,17 +35,22 @@ class UnityAdsExample extends StatefulWidget {
 
 class _UnityAdsExampleState extends State<UnityAdsExample> {
   bool _showBanner = false;
+  Map<String, bool> placements = {
+    AdManager.interstitialVideoAdPlacementId: false,
+    AdManager.rewardedVideoAdPlacementId: false,
+  };
 
   @override
   void initState() {
     super.initState();
-
     UnityAds.init(
       gameId: AdManager.gameId,
       testMode: true,
-      onComplete: () => print('Initialization Complete'),
-      onFailed: (error, message) =>
-          print('Initialization Failed: $error $message'),
+      onComplete: () {
+        print('Initialization Complete');
+        _loadAds();
+      },
+      onFailed: (error, message) => print('Initialization Failed: $error $message'),
     );
   }
 
@@ -68,13 +73,17 @@ class _UnityAdsExampleState extends State<UnityAdsExample> {
                 },
                 child: Text(_showBanner ? 'Hide Banner' : 'Show Banner'),
               ),
-              VideoAdButton(
-                placementId: AdManager.rewardedVideoAdPlacementId,
-                title: 'Show Rewarded Video',
+              ElevatedButton(
+                onPressed: placements[AdManager.rewardedVideoAdPlacementId] == true
+                    ? () => _showAd(AdManager.rewardedVideoAdPlacementId)
+                    : null,
+                child: const Text('Show Rewarded Video'),
               ),
-              VideoAdButton(
-                placementId: AdManager.interstitialVideoAdPlacementId,
-                title: 'Show Interstitial Video',
+              ElevatedButton(
+                onPressed: placements[AdManager.interstitialVideoAdPlacementId] == true
+                    ? () => _showAd(AdManager.interstitialVideoAdPlacementId)
+                    : null,
+                child: const Text('Show Interstitial Video'),
               ),
             ],
           ),
@@ -90,59 +99,46 @@ class _UnityAdsExampleState extends State<UnityAdsExample> {
       ),
     );
   }
-}
 
-class VideoAdButton extends StatefulWidget {
-  const VideoAdButton(
-      {Key? key, required this.placementId, required this.title})
-      : super(key: key);
+  void _loadAds() {
+    for (var placementId in placements.keys) {
+      _loadAd(placementId);
+    }
+  }
 
-  final String placementId;
-  final String title;
-
-  @override
-  _VideoAdButtonState createState() => _VideoAdButtonState();
-}
-
-class _VideoAdButtonState extends State<VideoAdButton> {
-  bool _loaded = false;
-
-  @override
-  void initState() {
-    super.initState();
+  void _loadAd(String placementId) {
     UnityAds.load(
-      placementId: widget.placementId,
+      placementId: placementId,
       onComplete: (placementId) {
         print('Load Complete $placementId');
         setState(() {
-          _loaded = true;
+          placements[placementId] = true;
         });
       },
-      onFailed: (placementId, error, message) =>
-          print('Load Failed $placementId: $error $message'),
+      onFailed: (placementId, error, message) => print('Load Failed $placementId: $error $message'),
     );
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: _loaded
-          ? () {
-              UnityAds.showVideoAd(
-                placementId: widget.placementId,
-                onComplete: (placementId) =>
-                    print('Video Ad $placementId completed'),
-                onFailed: (placementId, error, message) =>
-                    print('Video Ad $placementId failed: $error $message'),
-                onStart: (placementId) =>
-                    print('Video Ad $placementId started'),
-                onClick: (placementId) => print('Video Ad $placementId click'),
-                onSkipped: (placementId) =>
-                    print('Video Ad $placementId skipped'),
-              );
-            }
-          : null,
-      child: Text(widget.title),
+  void _showAd(String placementId) {
+    setState(() {
+      placements[placementId] = false;
+    });
+    UnityAds.showVideoAd(
+      placementId: placementId,
+      onComplete: (placementId) {
+        print('Video Ad $placementId completed');
+        _loadAd(placementId);
+      },
+      onFailed: (placementId, error, message) {
+        print('Video Ad $placementId failed: $error $message');
+        _loadAd(placementId);
+      },
+      onStart: (placementId) => print('Video Ad $placementId started'),
+      onClick: (placementId) => print('Video Ad $placementId click'),
+      onSkipped: (placementId) {
+        print('Video Ad $placementId skipped');
+        _loadAd(placementId);
+      },
     );
   }
 }
