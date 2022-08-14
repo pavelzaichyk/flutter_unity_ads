@@ -6,6 +6,7 @@ import static com.rebeloid.unity_ads.UnityAdsConstants.SERVER_ID_PARAMETER;
 import android.app.Activity;
 import android.content.Context;
 import android.provider.Settings;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -14,7 +15,6 @@ import com.rebeloid.unity_ads.privacy.PrivacyConsent;
 import com.unity3d.ads.UnityAds;
 import com.unity3d.ads.metadata.PlayerMetaData;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
@@ -30,11 +30,11 @@ import io.flutter.plugin.common.MethodChannel.Result;
  * Unity Ads Plugin
  */
 public class UnityAdsPlugin implements FlutterPlugin, MethodCallHandler, ActivityAware {
+    private static final String TAG = UnityAdsPlugin.class.getName();
     private MethodChannel channel;
     private Context context;
     private Activity activity;
-    private Map<String, MethodChannel> placementChannels;
-    private BinaryMessenger binaryMessenger;
+    private PlacementChannelManager placementChannelManager;
     private BannerAdFactory bannerAdFactory;
     private PrivacyConsent privacyConsent;
 
@@ -43,8 +43,8 @@ public class UnityAdsPlugin implements FlutterPlugin, MethodCallHandler, Activit
         channel = new MethodChannel(flutterPluginBinding.getBinaryMessenger(), UnityAdsConstants.MAIN_CHANNEL);
         channel.setMethodCallHandler(this);
         context = flutterPluginBinding.getApplicationContext();
-        binaryMessenger = flutterPluginBinding.getBinaryMessenger();
-        placementChannels = new HashMap<>();
+        BinaryMessenger binaryMessenger = flutterPluginBinding.getBinaryMessenger();
+        placementChannelManager = new PlacementChannelManager(binaryMessenger);
         privacyConsent = new PrivacyConsent();
 
         bannerAdFactory = new BannerAdFactory(binaryMessenger);
@@ -68,6 +68,9 @@ public class UnityAdsPlugin implements FlutterPlugin, MethodCallHandler, Activit
                 break;
             case UnityAdsConstants.PRIVACY_CONSENT_SET_METHOD:
                 result.success(privacyConsent.set(arguments));
+                break;
+            case UnityAdsConstants.IS_INITIALIZED_METHOD:
+                result.success(UnityAds.isInitialized());
                 break;
             default:
                 result.notImplemented();
@@ -130,8 +133,14 @@ public class UnityAdsPlugin implements FlutterPlugin, MethodCallHandler, Activit
 
     private boolean load(Map<?, ?> args) {
         final String placementId = (String) args.get(PLACEMENT_ID_PARAMETER);
-        UnityAds.load(placementId, new UnityAdsLoadListener(placementChannels, binaryMessenger));
-        return true;
+        try {
+            UnityAds.load(placementId, new UnityAdsLoadListener(placementChannelManager));
+            return true;
+        } catch (Exception ex) {
+            Log.e(TAG, "Exception occurs during loading ad: " + placementId, ex);
+            placementChannelManager.invokeMethod(UnityAdsConstants.LOAD_FAILED_METHOD, placementId, "unknown", ex.getMessage());
+        }
+        return false;
     }
 
     private boolean showVideo(Map<?, ?> args) {
@@ -143,8 +152,14 @@ public class UnityAdsPlugin implements FlutterPlugin, MethodCallHandler, Activit
             playerMetaData.setServerId(serverId);
             playerMetaData.commit();
         }
-        UnityAds.show(activity, placementId, new UnityAdsShowListener(placementChannels, binaryMessenger));
-        return true;
+        try {
+            UnityAds.show(activity, placementId, new UnityAdsShowListener(placementChannelManager));
+            return true;
+        } catch (Exception ex) {
+            Log.e(TAG, "Exception occurs during loading ad: " + placementId, ex);
+            placementChannelManager.invokeMethod(UnityAdsConstants.SHOW_FAILED_METHOD, placementId, "unknown", ex.getMessage());
+        }
+        return false;
     }
 
 }

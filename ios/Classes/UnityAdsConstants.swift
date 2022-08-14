@@ -14,6 +14,7 @@ struct UnityAdsConstants {
     static let TEST_MODE_PARAMETER = "testMode";
     static let INIT_COMPLETE_METHOD = "initComplete";
     static let INIT_FAILED_METHOD = "initFailed";
+    static let IS_INITIALIZED_METHOD = "isInitialized";
     
     //load
     static let LOAD_METHOD = "load";

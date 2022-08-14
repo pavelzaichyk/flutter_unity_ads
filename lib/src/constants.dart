@@ -15,6 +15,7 @@ const errorMessageParameter = "errorMessage";
 const initMethod = "init";
 const initCompleteMethod = "initComplete";
 const initFailedMethod = "initFailed";
+const isInitializedMethod = 'isInitialized';
 
 //load
 const loadMethod = 'load';

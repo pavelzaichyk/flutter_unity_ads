@@ -3,57 +3,35 @@ package com.rebeloid.unity_ads;
 import com.unity3d.ads.IUnityAdsShowListener;
 import com.unity3d.ads.UnityAds;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import io.flutter.plugin.common.BinaryMessenger;
-import io.flutter.plugin.common.MethodChannel;
-
 public class UnityAdsShowListener implements IUnityAdsShowListener {
-    private final Map<String, MethodChannel> placementChannels;
-    private final BinaryMessenger messenger;
+    private final PlacementChannelManager placementChannelManager;
 
-    public UnityAdsShowListener(Map<String, MethodChannel> placementChannels, BinaryMessenger messenger) {
-        this.placementChannels = placementChannels;
-        this.messenger = messenger;
+    public UnityAdsShowListener(PlacementChannelManager placementChannelManager) {
+        this.placementChannelManager = placementChannelManager;
     }
 
     @Override
     public void onUnityAdsShowFailure(String placementId, UnityAds.UnityAdsShowError error, String message) {
-        Map<String, String> arguments = new HashMap<>();
-        arguments.put(UnityAdsConstants.ERROR_CODE_PARAMETER, convertError(error));
-        arguments.put(UnityAdsConstants.ERROR_MESSAGE_PARAMETER, message);
-        invokeMethod(UnityAdsConstants.SHOW_FAILED_METHOD, placementId, arguments);
+        placementChannelManager.invokeMethod(UnityAdsConstants.SHOW_FAILED_METHOD, placementId, convertError(error), message);
     }
 
     @Override
     public void onUnityAdsShowStart(String placementId) {
-        invokeMethod(UnityAdsConstants.SHOW_START_METHOD, placementId, new HashMap<>());
+        placementChannelManager.invokeMethod(UnityAdsConstants.SHOW_START_METHOD, placementId);
     }
 
     @Override
     public void onUnityAdsShowClick(String placementId) {
-        invokeMethod(UnityAdsConstants.SHOW_CLICK_METHOD, placementId, new HashMap<>());
+        placementChannelManager.invokeMethod(UnityAdsConstants.SHOW_CLICK_METHOD, placementId);
     }
 
     @Override
     public void onUnityAdsShowComplete(String placementId, UnityAds.UnityAdsShowCompletionState state) {
         if (state == UnityAds.UnityAdsShowCompletionState.SKIPPED) {
-            invokeMethod(UnityAdsConstants.SHOW_SKIPPED_METHOD, placementId, new HashMap<>());
+            placementChannelManager.invokeMethod(UnityAdsConstants.SHOW_SKIPPED_METHOD, placementId);
         } else if (state == UnityAds.UnityAdsShowCompletionState.COMPLETED) {
-            invokeMethod(UnityAdsConstants.SHOW_COMPLETE_METHOD, placementId, new HashMap<>());
+            placementChannelManager.invokeMethod(UnityAdsConstants.SHOW_COMPLETE_METHOD, placementId);
         }
-    }
-
-
-    private void invokeMethod(String methodName, String placementId, Map<String, String> arguments) {
-        arguments.put(UnityAdsConstants.PLACEMENT_ID_PARAMETER, placementId);
-        MethodChannel channel = placementChannels.get(placementId);
-        if (channel == null) {
-            channel = new MethodChannel(messenger, UnityAdsConstants.VIDEO_AD_CHANNEL + "_" + placementId);
-            placementChannels.put(placementId, channel);
-        }
-        channel.invokeMethod(methodName, arguments);
     }
 
     private String convertError(UnityAds.UnityAdsShowError error) {
@@ -72,6 +50,8 @@ public class UnityAdsShowListener implements IUnityAdsShowListener {
                 return "alreadyShowing";
             case INTERNAL_ERROR:
                 return "internalError";
+            case TIMEOUT:
+                return "timeout";
             default:
                 return "";
         }

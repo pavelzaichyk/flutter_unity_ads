@@ -10,21 +10,23 @@ public class SwiftUnityAdsPlugin: NSObject, FlutterPlugin {
         (UIApplication.shared.delegate?.window??.rootViewController)!;
         let messenger = registrar.messenger()
         
-        let placementChannels = [String: FlutterMethodChannel]()
+        let placementChannelManager = PlacementChannelManager(binaryMessenger: messenger)
         let channel = FlutterMethodChannel(name: UnityAdsConstants.MAIN_CHANNEL, binaryMessenger: messenger)
         let privacyConsent = PrivacyConsent()
         channel.setMethodCallHandler({
             (call: FlutterMethodCall, result: @escaping FlutterResult) -> Void in
-            let args = call.arguments as! NSDictionary
+            let args = call.arguments as? NSDictionary ?? [:]
             switch call.method {
             case UnityAdsConstants.INIT_METHOD:
                 result(initialize(args, channel: channel))
             case UnityAdsConstants.LOAD_METHOD:
-                result(load(args, messenger: messenger, placementChannels: placementChannels))
+                result(load(args, placementChannelManager: placementChannelManager))
             case UnityAdsConstants.SHOW_VIDEO_METHOD:
-                result(showVideo(args, messenger: messenger, placementChannels: placementChannels))
+                result(showVideo(args, placementChannelManager: placementChannelManager))
             case UnityAdsConstants.PRIVACY_CONSENT_SET_METHOD:
                 result(privacyConsent.set(args))
+            case UnityAdsConstants.IS_INITIALIZED_METHOD:
+                result(UnityAds.isInitialized())
             default:
                 result(FlutterMethodNotImplemented)
             }
@@ -44,13 +46,13 @@ public class SwiftUnityAdsPlugin: NSObject, FlutterPlugin {
         return true
     }
     
-    static func load(_ args: NSDictionary, messenger: FlutterBinaryMessenger, placementChannels: [String: FlutterMethodChannel]) -> Bool {
+    static func load(_ args: NSDictionary, placementChannelManager: PlacementChannelManager) -> Bool {
         let placementId = args[UnityAdsConstants.PLACEMENT_ID_PARAMETER] as! String
-        UnityAds.load(placementId, loadDelegate: UnityAdsLoadListener(messenger: messenger, placementChannels: placementChannels))
+        UnityAds.load(placementId, loadDelegate: UnityAdsLoadListener(placementChannelManager: placementChannelManager))
         return true
     }
     
-    static func showVideo(_ args: NSDictionary, messenger: FlutterBinaryMessenger, placementChannels: [String: FlutterMethodChannel]) -> Bool {
+    static func showVideo(_ args: NSDictionary, placementChannelManager: PlacementChannelManager) -> Bool {
         let placementId = args[UnityAdsConstants.PLACEMENT_ID_PARAMETER] as! String
         let serverId = args[UnityAdsConstants.SERVER_ID_PARAMETER] as? String
         if (serverId != nil) {
@@ -58,7 +60,7 @@ public class SwiftUnityAdsPlugin: NSObject, FlutterPlugin {
             playerMetaData.setServerId(serverId)
             playerMetaData.commit()
         }
-        UnityAds.show(viewController, placementId: placementId, showDelegate: UnityAdsShowListener(messenger: messenger, placementChannels: placementChannels))
+        UnityAds.show(viewController, placementId: placementId, showDelegate: UnityAdsShowListener(placementChannelManager: placementChannelManager))
         return true
     }
 }
