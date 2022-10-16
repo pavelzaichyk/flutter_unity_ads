@@ -1,8 +1,12 @@
 name: unity_ads_plugin
 description: Unity Ads plugin for Flutter Applications. This plugin is able to display Unity Banner Ads and Unity Video Ads.
-version: 0.3.6
+version: 0.3.7
 homepage: https://github.com/pavelzaichyk/flutter_unity_ads
 repository: https://github.com/pavelzaichyk/flutter_unity_ads
+funding:
+  - https://paypal.me/pavelzaichyk
+  - https://www.buymeacoffee.com/rebeloid
+  - https://www.paypal.com/donate/?hosted_button_id=EG9DHRCSB5MY4
 
 environment:
   sdk: '>=2.12.0 <3.0.0'
