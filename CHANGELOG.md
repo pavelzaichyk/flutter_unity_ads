@@ -1,3 +1,7 @@
+## 0.3.7
+
+* Switched unity ads version to 4.4.1
+
 ## 0.3.6
 
 * Minor fixes.
