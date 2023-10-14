@@ -39,6 +39,7 @@ public interface UnityAdsConstants {
     String BANNER_ERROR_METHOD = "banner_error";
     String BANNER_LOADED_METHOD = "banner_loaded";
     String BANNER_CLICKED_METHOD = "banner_clicked";
+    String BANNER_SHOWN_METHOD = "banner_shown";
 
     //privacy consent
     String PRIVACY_CONSENT_SET_METHOD = "privacyConsent_set";

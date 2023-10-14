@@ -13,6 +13,11 @@ class BannerAdListener: NSObject, UADSBannerViewDelegate {
                              arguments: [UnityAdsConstants.PLACEMENT_ID_PARAMETER: bannerView.placementId])
     }
     
+    func bannerViewDidShow(_ bannerView: UADSBannerView) {
+        channel.invokeMethod(UnityAdsConstants.BANNER_SHOWN_METHOD,
+                             arguments: [UnityAdsConstants.PLACEMENT_ID_PARAMETER: bannerView.placementId])
+    }
+    
     func bannerViewDidClick(_ bannerView: UADSBannerView) {
         channel.invokeMethod(UnityAdsConstants.BANNER_CLICKED_METHOD,
                              arguments: [UnityAdsConstants.PLACEMENT_ID_PARAMETER: bannerView.placementId])

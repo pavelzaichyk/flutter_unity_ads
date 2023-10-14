@@ -35,6 +35,7 @@ struct UnityAdsConstants {
     static let WIDTH_PARAMETER = "width";
     static let BANNER_ERROR_METHOD = "banner_error";
     static let BANNER_LOADED_METHOD = "banner_loaded";
+    static let BANNER_SHOWN_METHOD = "banner_shown";
     static let BANNER_CLICKED_METHOD = "banner_clicked";
     
     //privacy consent
