@@ -13,8 +13,6 @@
 
 [Unity Ads](https://docs.unity.com/ads/UnityAdsHome.htm) plugin for Flutter Applications. This plugin is able to display Unity Banner Ads and Unity Video Ads.
 
-> If you want to try [Unity Mediation (Beta)](https://docs.unity.com/mediation/IntroToMediation.htm) use [Unity Mediation plugin](https://pub.dev/packages/unity_mediation) instead of this one.
-
 - [Getting Started](#getting-started)
     - [1. Initialization](#1-initialization)
     - [2. Show Rewarded/Interstitial Video Ad](#2-show-rewardedinterstitial-video-ad)
@@ -96,6 +94,7 @@ UnityBannerAd(
   placementId: 'PLACEMENT_ID',
   onLoad: (placementId) => print('Banner loaded: $placementId'),
   onClick: (placementId) => print('Banner clicked: $placementId'),
+  onShown: (placementId) => print('Banner shown: $placementId'),
   onFailed: (placementId, error, message) => print('Banner Ad $placementId failed: $error $message'),
 )
 ```

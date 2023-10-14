@@ -28,7 +28,18 @@ class BannerAdListener implements BannerView.IListener {
     }
 
     /**
-     * Called when a banner is clicked.
+     * Called when the banner is shown.
+     */
+    @Override
+    public void onBannerShown(BannerView bannerView) {
+        Map<String, String> arguments = new HashMap<>();
+        arguments.put(UnityAdsConstants.PLACEMENT_ID_PARAMETER, bannerView.getPlacementId());
+
+        channel.invokeMethod(UnityAdsConstants.BANNER_SHOWN_METHOD, arguments);
+    }
+
+    /**
+     * Called when the banner is clicked.
      */
     @Override
     public void onBannerClick(BannerView bannerView) {

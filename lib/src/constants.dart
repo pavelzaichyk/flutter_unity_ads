@@ -37,6 +37,7 @@ const widthParameter = "width";
 const bannerErrorMethod = "banner_error";
 const bannerLoadedMethod = "banner_loaded";
 const bannerClickedMethod = "banner_clicked";
+const bannerShownMethod = "banner_shown";
 
 //privacy consent
 const privacyConsentSetMethod = "privacyConsent_set";

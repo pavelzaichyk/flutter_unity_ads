@@ -92,6 +92,7 @@ class _UnityAdsExampleState extends State<UnityAdsExample> {
               placementId: AdManager.bannerAdPlacementId,
               onLoad: (placementId) => print('Banner loaded: $placementId'),
               onClick: (placementId) => print('Banner clicked: $placementId'),
+              onShown: (placementId) => print('Banner shown: $placementId'),
               onFailed: (placementId, error, message) =>
                   print('Banner Ad $placementId failed: $error $message'),
             ),

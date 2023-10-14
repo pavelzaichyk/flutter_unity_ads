@@ -17,6 +17,9 @@ class UnityBannerAd extends StatefulWidget {
   /// Called when the user clicks the banner.
   final void Function(String placementId)? onClick;
 
+  /// Called when the banner is shown.
+  final void Function(String placementId)? onShown;
+
   /// Called when unity ads banner encounters an error.
   final void Function(
           String placementId, UnityAdsBannerError error, String errorMessage)?
@@ -29,6 +32,7 @@ class UnityBannerAd extends StatefulWidget {
     this.size = BannerSize.standard,
     this.onLoad,
     this.onClick,
+    this.onShown,
     this.onFailed,
   }) : super(key: key);
 
@@ -107,6 +111,9 @@ class UnityBannerAdState extends State<UnityBannerAd> {
           break;
         case bannerClickedMethod:
           widget.onClick?.call(call.arguments[placementIdParameter]);
+          break;
+        case bannerShownMethod:
+          widget.onShown?.call(call.arguments[placementIdParameter]);
           break;
       }
     });
