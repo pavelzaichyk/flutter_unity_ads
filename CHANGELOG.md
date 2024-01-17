@@ -1,3 +1,7 @@
+## 0.3.11
+
+* Switched unity ads version to 4.9.2
+
 ## 0.3.10
 
 * The problem with building a release version of the Android app has been fixed
