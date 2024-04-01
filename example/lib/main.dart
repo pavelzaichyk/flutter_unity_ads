@@ -19,21 +19,21 @@ class UnityAdsExampleApp extends StatelessWidget {
           title: const Text('Unity Ads Example'),
         ),
         body: const SafeArea(
-          child: UnityAdsExample(),
+          child: _UnityAdsExample(),
         ),
       ),
     );
   }
 }
 
-class UnityAdsExample extends StatefulWidget {
-  const UnityAdsExample({Key? key}) : super(key: key);
+class _UnityAdsExample extends StatefulWidget {
+  const _UnityAdsExample({Key? key}) : super(key: key);
 
   @override
   _UnityAdsExampleState createState() => _UnityAdsExampleState();
 }
 
-class _UnityAdsExampleState extends State<UnityAdsExample> {
+class _UnityAdsExampleState extends State<_UnityAdsExample> {
   bool _showBanner = false;
   Map<String, bool> placements = {
     AdManager.interstitialVideoAdPlacementId: false,
