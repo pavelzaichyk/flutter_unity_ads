@@ -4,11 +4,11 @@ version '1.0'
 buildscript {
     repositories {
         google()
-        jcenter()
+        mavenCentral()
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.5.0'
+        classpath 'com.android.tools.build:gradle:7.3.0'
     }
 }
 
@@ -16,28 +16,42 @@ rootProject.allprojects {
     repositories {
         google()
         mavenCentral()
-        jcenter()
     }
-
 }
 
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 31
+    if (project.android.hasProperty("namespace")) {
+        namespace 'com.rebeloid.unity_ads'
+    }
 
-    defaultConfig {
-        minSdkVersion 19
-    }
-    lintOptions {
-        disable 'InvalidPackage'
-    }
+    compileSdk 33
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-}
 
-dependencies {
-    implementation group: 'com.unity3d.ads', name: 'unity-ads', version: '4.10.0'
+    defaultConfig {
+        minSdkVersion 19
+    }
+
+    dependencies {
+        implementation group: 'com.unity3d.ads', name: 'unity-ads', version: '4.11.0'
+        implementation group: 'io.insert-koin', name: 'koin-android', version: '3.5.6'
+
+        testImplementation 'junit:junit:4.13.2'
+        testImplementation 'org.mockito:mockito-core:5.0.0'
+    }
+
+    testOptions {
+        unitTests.all {
+            testLogging {
+               events "passed", "skipped", "failed", "standardOut", "standardError"
+               outputs.upToDateWhen {false}
+               showStandardStreams = true
+            }
+        }
+    }
 }
