@@ -18,6 +18,8 @@
     - [2. Show Rewarded/Interstitial Video Ad](#2-show-rewardedinterstitial-video-ad)
     - [3. Show Banner Ad](#3-show-banner-ad)
     - [Privacy consent](#privacy-consent)
+    - [FAQ](#faq)
+        - [Getting 'Unhandled Exception: MissingPluginException(No implementation found for method init on channel com.rebeloid.unity_ads)' when running the application on Android in release mode](#getting-unhandled-exception-missingpluginexceptionno-implementation-found-for-method-init-on-channel-comrebeloidunity_ads-when-running-the-application-on-android-in-release-mode)
 - [Donate](#donate)
 
 ## Getting Started
@@ -107,6 +109,28 @@ Use the following code to pass the appropriate consent flags to the Unity Ads SD
 
 ```dart
 UnityAds.setPrivacyConsent(<Privacy Consent type>, true)
+```
+
+### FAQ
+
+#### Getting 'Unhandled Exception: MissingPluginException(No implementation found for method init on channel com.rebeloid.unity_ads)' when running the application on Android in release mode
+
+Adding `shrinkResources false` and `minifyEnabled false` to the `/android/app/build.gradle` file resolves the problem.
+
+```gradle
+android {
+...
+    buildTypes {
+        release {
+            // TODO: Add your own signing config for the release build.
+            // Signing with the debug keys for now, so `flutter run --release` works.
+            signingConfig signingConfigs.debug
+
+            shrinkResources false
+            minifyEnabled false
+        }
+    }
+}
 ```
 
 ## Donate
