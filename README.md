@@ -19,7 +19,7 @@
     - [3. Show Banner Ad](#3-show-banner-ad)
     - [Privacy consent](#privacy-consent)
     - [FAQ](#faq)
-        - [Getting 'Unhandled Exception: MissingPluginException(No implementation found for method init on channel com.rebeloid.unity_ads)' when running the application on Android in release mode](#getting-unhandled-exception-missingpluginexceptionno-implementation-found-for-method-init-on-channel-comrebeloidunity_ads-when-running-the-application-on-android-in-release-mode)
+        - [Getting 'Unhandled Exception: PlatformException(error, Field loadTimeoutMs_ for j2.b2 not found....' when running the application on Android in release mode](#getting-unhandled-exception-platformexceptionerror-field-loadtimeoutms_-for-j2b2-not-found-when-running-the-application-on-android-in-release-mode)
 - [Donate](#donate)
 
 ## Getting Started
@@ -50,7 +50,7 @@ showAdsInTestMode | Ads are displayed in test mode.
 showAds | Real ads are displayed, if testMode is false.
 
 
-Add `shrinkResources false` and `minifyEnabled false` to the `/android/app/build.gradle` file to prevent runtime exception when running the application on Android in release mode.
+Add `shrinkResources false` and `minifyEnabled false` to the `/android/app/build.gradle` file to prevent the runtime exception when running the application on Android in release mode.
 
 ```gradle
 android {
