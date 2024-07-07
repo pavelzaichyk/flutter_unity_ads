@@ -49,6 +49,25 @@ disableAds | Ads are not displayed in the Firebase Test Lab (by default)
 showAdsInTestMode | Ads are displayed in test mode.
 showAds | Real ads are displayed, if testMode is false.
 
+
+Add `shrinkResources false` and `minifyEnabled false` to the `/android/app/build.gradle` file to prevent runtime exception when running the application on Android in release mode.
+
+```gradle
+android {
+...
+    buildTypes {
+        release {
+            // TODO: Add your own signing config for the release build.
+            // Signing with the debug keys for now, so `flutter run --release` works.
+            signingConfig signingConfigs.debug
+
+            shrinkResources false
+            minifyEnabled false
+        }
+    }
+}
+```
+
 ### 2. Show Rewarded/Interstitial Video Ad:
 
 ![Rewarded Video Ad](https://i.giphy.com/media/InPCZIuZspVEfmTGga/giphy.gif "Rewarded Video Ad")
@@ -113,7 +132,7 @@ UnityAds.setPrivacyConsent(<Privacy Consent type>, true)
 
 ### FAQ
 
-#### Getting 'Unhandled Exception: MissingPluginException(No implementation found for method init on channel com.rebeloid.unity_ads)' when running the application on Android in release mode
+#### Getting 'Unhandled Exception: PlatformException(error, Field loadTimeoutMs_ for j2.b2 not found....' when running the application on Android in release mode
 
 Adding `shrinkResources false` and `minifyEnabled false` to the `/android/app/build.gradle` file resolves the problem.
 
