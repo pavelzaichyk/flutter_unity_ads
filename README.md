@@ -13,6 +13,10 @@
 
 [Unity Ads](https://docs.unity.com/ads/UnityAdsHome.htm) plugin for Flutter Applications. This plugin is able to display Unity Banner Ads and Unity Video Ads.
 
+[Flutter Unity Ads Example for Andoid](https://play.google.com/store/apps/details?id=com.rebeloid.unity_ads_example)
+
+## Table of Contents
+
 - [Getting Started](#getting-started)
     - [1. Initialization](#1-initialization)
     - [2. Show Rewarded/Interstitial Video Ad](#2-show-rewardedinterstitial-video-ad)
@@ -154,9 +158,12 @@ android {
 
 ## Donate
 
-Your donation motivates me to work more on plugins and packages. If you found this plugin helpful and would like to thank me:
+If you find this package helpful and would like to support its continued development, please consider making a donation. Your contributions are greatly appreciated and motivate the further enhancement of this and other plugins.
 
-[![Donate](https://www.paypalobjects.com/en_US/PL/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/donate/?hosted_button_id=EG9DHRCSB5MY4)
+[![Donate](https://www.paypalobjects.com/en_US/PL/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/donate/?hosted_button_id=QE4E8RX8FW6P4)
 [![Buy Me A Coffee](https://img.buymeacoffee.com/button-api/?text=Buy%20me%20a%20coffee&emoji=&slug=rebeloid&button_colour=FFDD00&font_colour=000000&font_family=Cookie&outline_colour=000000&coffee_colour=ffffff)](https://www.buymeacoffee.com/rebeloid)
 [![PayPal](https://img.shields.io/badge/Donate-PayPal-066BB7?logo=paypal)](https://paypal.me/pavelzaichyk)
 
+Your support helps in maintaining and improving this package, ensuring it remains up-to-date and useful for the community.
+
+Thank you for your generosity!
