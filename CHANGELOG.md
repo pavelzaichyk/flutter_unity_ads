@@ -1,3 +1,7 @@
+## 0.3.20
+
+* Switched unity ads version to 4.12.2
+
 ## 0.3.19
 
 * Update examples

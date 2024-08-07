@@ -7,28 +7,25 @@
 [![Pub points](https://badgen.net/pub/points/unity_ads_plugin)](https://pub.dev/packages/unity_ads_plugin/score)
 [![Flutter platform](https://badgen.net/pub/flutter-platform/unity_ads_plugin)](https://pub.dev/packages/unity_ads_plugin)
 
-
 [![Buy Me A Coffee](https://img.shields.io/badge/Donate-Buy%20me%20a%20coffee-FFDD00?logo=buymeacoffee)](https://www.buymeacoffee.com/rebeloid)
 [![PayPal](https://img.shields.io/badge/Donate-PayPal-066BB7?logo=paypal)](https://paypal.me/pavelzaichyk)
 
 [Unity Ads](https://docs.unity.com/ads/UnityAdsHome.htm) plugin for Flutter Applications. This plugin is able to display Unity Banner Ads and Unity Video Ads.
 
-[Flutter Unity Ads Example for Andoid](https://play.google.com/store/apps/details?id=com.rebeloid.unity_ads_example)
+[Flutter Unity Ads Example for Android](https://play.google.com/store/apps/details?id=com.rebeloid.unity_ads_example)
 
 ## Table of Contents
 
 - [Getting Started](#getting-started)
-    - [1. Initialization](#1-initialization)
-    - [2. Show Rewarded/Interstitial Video Ad](#2-show-rewardedinterstitial-video-ad)
-    - [3. Show Banner Ad](#3-show-banner-ad)
-    - [Privacy consent](#privacy-consent)
-    - [FAQ](#faq)
-        - [Getting 'Unhandled Exception: PlatformException(error, Field loadTimeoutMs_ for j2.b2 not found....' when running the application on Android in release mode](#getting-unhandled-exception-platformexceptionerror-field-loadtimeoutms_-for-j2b2-not-found-when-running-the-application-on-android-in-release-mode)
+  - [1. Initialization](#1-initialization)
+  - [2. Show Rewarded/Interstitial Video Ad](#2-show-rewardedinterstitial-video-ad)
+  - [3. Show Banner Ad](#3-show-banner-ad)
+  - [Privacy Consent](#privacy-consent)
 - [Donate](#donate)
 
 ## Getting Started
 
-### 1. Initialization:
+### 1. Initialization
 
 ```dart
 UnityAds.init(
@@ -39,45 +36,26 @@ UnityAds.init(
 ```
 
 Set your Game ID.
-For testing purposes set `testMode` to `true`.
+For testing purposes, set `testMode` to `true`.
 
 `UnityAds.isInitialized()` can be used to check if the SDK is initialized successfully.
 
 ---
 
-_Android only:_ To change ads behavior in Firebase Test Lab use `firebaseTestLabMode` parameter. Possible values:
+_Android only:_ To change ads behavior in Firebase Test Lab, use `firebaseTestLabMode` parameter. Possible values:
 
-Mode | Description 
---- | --- 
-disableAds | Ads are not displayed in the Firebase Test Lab (by default)
-showAdsInTestMode | Ads are displayed in test mode.
-showAds | Real ads are displayed, if testMode is false.
+| Mode              | Description                                              |
+|-------------------|----------------------------------------------------------|
+| disableAds        | Ads are not displayed in the Firebase Test Lab (default) |
+| showAdsInTestMode | Ads are displayed in test mode.                          |
+| showAds           | Real ads are displayed if `testMode` is false.           |
 
-
-Add `shrinkResources false` and `minifyEnabled false` to the `/android/app/build.gradle` file to prevent the runtime exception when running the application on Android in release mode.
-
-```gradle
-android {
-...
-    buildTypes {
-        release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig signingConfigs.debug
-
-            shrinkResources false
-            minifyEnabled false
-        }
-    }
-}
-```
-
-### 2. Show Rewarded/Interstitial Video Ad:
+### 2. Show Rewarded/Interstitial Video Ad
 
 ![Rewarded Video Ad](https://i.giphy.com/media/InPCZIuZspVEfmTGga/giphy.gif "Rewarded Video Ad")
 ![Interstitial Video Ad](https://i.giphy.com/media/8wEtgrnfLNqUY4mllS/giphy.gif "Interstitial Video Ad")
 
-Load a video ad before show it.
+Load a video ad before showing it.
 
 ```dart
 UnityAds.load(
@@ -100,15 +78,11 @@ UnityAds.showVideoAd(
 );
 ```
 
-#### Server-to-server redeem callbacks
+#### Server-to-server Redeem Callbacks
 
-`UnityAds.showVideoAd` has `serverId` parameter.
+`UnityAds.showVideoAd` has a `serverId` parameter. To use server-to-server callbacks, set this parameter. Read more on [docs.unity.com](https://docs.unity.com/ads/ImplementingS2SRedeemCallbacks.htm).
 
-To use server-to-server callbacks, you need to set this parameter.
-
-Read more on [docs.unity.com](https://docs.unity.com/ads/ImplementingS2SRedeemCallbacks.htm).
-
-### 3. Show Banner Ad:
+### 3. Show Banner Ad
 
 ![Banner Ad](https://i.giphy.com/media/aQvnz1i8xn6EWO5bo0/giphy.gif "Banner Ad")
 
@@ -124,36 +98,14 @@ UnityBannerAd(
 )
 ```
 
-### Privacy consent
+### Privacy Consent
 
-Read more about privacy consent in [Unity Ads documentation](https://docs.unity.com/ads/ImplementingDataPrivacy.html).
+Read more about privacy consent in the [Unity Ads documentation](https://docs.unity.com/ads/ImplementingDataPrivacy.html).
 
 Use the following code to pass the appropriate consent flags to the Unity Ads SDK:
 
 ```dart
 UnityAds.setPrivacyConsent(<Privacy Consent type>, true)
-```
-
-### FAQ
-
-#### Getting 'Unhandled Exception: PlatformException(error, Field loadTimeoutMs_ for j2.b2 not found....' when running the application on Android in release mode
-
-Adding `shrinkResources false` and `minifyEnabled false` to the `/android/app/build.gradle` file resolves the problem.
-
-```gradle
-android {
-...
-    buildTypes {
-        release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig signingConfigs.debug
-
-            shrinkResources false
-            minifyEnabled false
-        }
-    }
-}
 ```
 
 ## Donate
