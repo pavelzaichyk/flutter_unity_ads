@@ -50,7 +50,8 @@ class _UnityAdsExampleState extends State<_UnityAdsExample> {
         print('Initialization Complete');
         _loadAds();
       },
-      onFailed: (error, message) => print('Initialization Failed: $error $message'),
+      onFailed: (error, message) =>
+          print('Initialization Failed: $error $message'),
     );
   }
 
@@ -74,15 +75,18 @@ class _UnityAdsExampleState extends State<_UnityAdsExample> {
                 child: Text(_showBanner ? 'Hide Banner' : 'Show Banner'),
               ),
               ElevatedButton(
-                onPressed: placements[AdManager.rewardedVideoAdPlacementId] == true
-                    ? () => _showAd(AdManager.rewardedVideoAdPlacementId)
-                    : null,
+                onPressed:
+                    placements[AdManager.rewardedVideoAdPlacementId] == true
+                        ? () => _showAd(AdManager.rewardedVideoAdPlacementId)
+                        : null,
                 child: const Text('Show Rewarded Video'),
               ),
               ElevatedButton(
-                onPressed: placements[AdManager.interstitialVideoAdPlacementId] == true
-                    ? () => _showAd(AdManager.interstitialVideoAdPlacementId)
-                    : null,
+                onPressed:
+                    placements[AdManager.interstitialVideoAdPlacementId] == true
+                        ? () =>
+                            _showAd(AdManager.interstitialVideoAdPlacementId)
+                        : null,
                 child: const Text('Show Interstitial Video'),
               ),
             ],
@@ -116,7 +120,8 @@ class _UnityAdsExampleState extends State<_UnityAdsExample> {
           placements[placementId] = true;
         });
       },
-      onFailed: (placementId, error, message) => print('Load Failed $placementId: $error $message'),
+      onFailed: (placementId, error, message) =>
+          print('Load Failed $placementId: $error $message'),
     );
   }
 

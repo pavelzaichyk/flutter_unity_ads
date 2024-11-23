@@ -1,3 +1,7 @@
+## 0.3.22
+
+* Switched unity ads version to 4.12.5
+
 ## 0.3.21
 
 * Switched unity ads version to 4.12.3

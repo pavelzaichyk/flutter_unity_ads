@@ -12,8 +12,6 @@
 
 [Unity Ads](https://docs.unity.com/ads/UnityAdsHome.htm) plugin for Flutter Applications. This plugin is able to display Unity Banner Ads and Unity Video Ads.
 
-[Flutter Unity Ads Example for Android](https://play.google.com/store/apps/details?id=com.rebeloid.unity_ads_example)
-
 ## Table of Contents
 
 - [Getting Started](#getting-started)
