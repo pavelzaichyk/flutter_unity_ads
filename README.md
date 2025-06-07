@@ -10,16 +10,72 @@
 [![Buy Me A Coffee](https://img.shields.io/badge/Donate-Buy%20me%20a%20coffee-FFDD00?logo=buymeacoffee)](https://www.buymeacoffee.com/rebeloid)
 [![PayPal](https://img.shields.io/badge/Donate-PayPal-066BB7?logo=paypal)](https://paypal.me/pavelzaichyk)
 
-[Unity Ads](https://docs.unity.com/ads/UnityAdsHome.htm) plugin for Flutter Applications. This plugin is able to display Unity Banner Ads and Unity Video Ads.
+A Flutter plugin for integrating [Unity Ads](https://docs.unity.com/ads/UnityAdsHome.htm) into your mobile applications. Easily display Unity Banner Ads and Unity Video Ads (Rewarded & Interstitial) with simple Dart APIs.
+
+---
+
+## Features
+
+- Display Unity Banner, Rewarded, and Interstitial Video Ads
+- Simple initialization and ad loading
+- Server-to-server reward callback support
+- Privacy consent management
+- Firebase Test Lab support (Android)
+- Null safety
+
+---
 
 ## Table of Contents
 
+- [Features](#features)
+- [Installation](#installation)
+- [Usage Example](#usage-example)
 - [Getting Started](#getting-started)
   - [1. Initialization](#1-initialization)
   - [2. Show Rewarded/Interstitial Video Ad](#2-show-rewardedinterstitial-video-ad)
   - [3. Show Banner Ad](#3-show-banner-ad)
   - [Privacy Consent](#privacy-consent)
 - [Donate](#donate)
+
+---
+
+## Installation
+
+Add the plugin to your `pubspec.yaml`:
+
+```yaml
+dependencies:
+  unity_ads_plugin: ^<latest_version>
+```
+
+Then run:
+
+```sh
+flutter pub get
+```
+
+---
+
+## Usage Example
+
+Here is a minimal example of using the plugin:
+
+```dart
+import 'package:unity_ads_plugin/unity_ads_plugin.dart';
+
+void main() {
+  UnityAds.init(
+    gameId: 'YOUR_GAME_ID',
+    testMode: true,
+    onComplete: () => print('Unity Ads Initialized'),
+    onFailed: (error, message) => print('Unity Ads Initialization Failed: $error $message'),
+  );
+}
+```
+
+For more detailed usage, see the [Getting Started](#getting-started) section.
+
+---
 
 ## Getting Started
 
@@ -36,15 +92,15 @@ UnityAds.init(
 Set your Game ID.
 For testing purposes, set `testMode` to `true`.
 
-`UnityAds.isInitialized()` can be used to check if the SDK is initialized successfully.
+`UnityAds.isInitialized()` can be used to check if the SDK has initialized successfully.
 
 ---
 
-_Android only:_ To change ads behavior in Firebase Test Lab, use `firebaseTestLabMode` parameter. Possible values:
+_Android only:_ To change ad behavior in Firebase Test Lab, use the `firebaseTestLabMode` parameter. Possible values:
 
 | Mode              | Description                                              |
 |-------------------|----------------------------------------------------------|
-| disableAds        | Ads are not displayed in the Firebase Test Lab (default) |
+| disableAds        | Ads are not displayed in Firebase Test Lab (default)     |
 | showAdsInTestMode | Ads are displayed in test mode.                          |
 | showAds           | Real ads are displayed if `testMode` is false.           |
 
@@ -78,13 +134,13 @@ UnityAds.showVideoAd(
 
 #### Server-to-server Redeem Callbacks
 
-`UnityAds.showVideoAd` has a `serverId` parameter. To use server-to-server callbacks, set this parameter. Read more on [docs.unity.com](https://docs.unity.com/ads/ImplementingS2SRedeemCallbacks.htm).
+`UnityAds.showVideoAd` has a `serverId` parameter. To use server-to-server callbacks, set this parameter. Read more at [docs.unity.com](https://docs.unity.com/ads/ImplementingS2SRedeemCallbacks.htm).
 
 ### 3. Show Banner Ad
 
 ![Banner Ad](https://i.giphy.com/media/aQvnz1i8xn6EWO5bo0/giphy.gif "Banner Ad")
 
-Place `UnityBannerAd` widget in your app.
+Place the `UnityBannerAd` widget in your app.
 
 ```dart
 UnityBannerAd(
@@ -106,6 +162,8 @@ Use the following code to pass the appropriate consent flags to the Unity Ads SD
 UnityAds.setPrivacyConsent(<Privacy Consent type>, true)
 ```
 
+---
+
 ## Donate
 
 If you find this package helpful and would like to support its continued development, please consider making a donation. Your contributions are greatly appreciated and motivate the further enhancement of this and other plugins.
@@ -114,6 +172,6 @@ If you find this package helpful and would like to support its continued develop
 [![Buy Me A Coffee](https://img.buymeacoffee.com/button-api/?text=Buy%20me%20a%20coffee&emoji=&slug=rebeloid&button_colour=FFDD00&font_colour=000000&font_family=Cookie&outline_colour=000000&coffee_colour=ffffff)](https://www.buymeacoffee.com/rebeloid)
 [![PayPal](https://img.shields.io/badge/Donate-PayPal-066BB7?logo=paypal)](https://paypal.me/pavelzaichyk)
 
-Your support helps in maintaining and improving this package, ensuring it remains up-to-date and useful for the community.
+Your support helps maintain and improve this package, ensuring it remains up-to-date and useful for the community.
 
 Thank you for your generosity!
