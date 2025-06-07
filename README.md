@@ -3,7 +3,7 @@
 [![Pub](https://img.shields.io/pub/v/unity_ads_plugin.svg)](https://pub.dev/packages/unity_ads_plugin)
 [![License](https://img.shields.io/github/license/pavelzaichyk/flutter_unity_ads)](https://github.com/pavelzaichyk/flutter_unity_ads/blob/master/LICENSE)
 [![Pub likes](https://badgen.net/pub/likes/unity_ads_plugin)](https://pub.dev/packages/unity_ads_plugin/score)
-[![Pub popularity](https://badgen.net/pub/popularity/unity_ads_plugin)](https://pub.dev/packages/unity_ads_plugin/score)
+[![Monthly downloads](https://badgen.net/pub/dm/unity_ads_plugin)](https://pub.dev/packages/unity_ads_plugin/score)
 [![Pub points](https://badgen.net/pub/points/unity_ads_plugin)](https://pub.dev/packages/unity_ads_plugin/score)
 [![Flutter platform](https://badgen.net/pub/flutter-platform/unity_ads_plugin)](https://pub.dev/packages/unity_ads_plugin)
 
