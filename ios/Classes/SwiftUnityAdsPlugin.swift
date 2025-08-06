@@ -3,11 +3,7 @@ import UnityAds
 
 public class SwiftUnityAdsPlugin: NSObject, FlutterPlugin {
     
-    static var viewController : UIViewController =  UIViewController();
-    
     public static func register(with registrar: FlutterPluginRegistrar) {
-        viewController =
-        (UIApplication.shared.delegate?.window??.rootViewController)!;
         let messenger = registrar.messenger()
         
         let placementChannelManager = PlacementChannelManager(binaryMessenger: messenger)
@@ -60,6 +56,21 @@ public class SwiftUnityAdsPlugin: NSObject, FlutterPlugin {
             playerMetaData.setServerId(serverId)
             playerMetaData.commit()
         }
+        var viewController : UIViewController =  UIViewController();
+        if let vc = UIApplication.shared.delegate?.window??.rootViewController {
+                viewController = vc
+            } else if let vc = UIApplication.shared
+                .connectedScenes
+                .compactMap({ $0 as? UIWindowScene })
+                .flatMap({ $0.windows })
+                .first(where: { $0.isKeyWindow })?
+                .rootViewController {
+                viewController = vc
+            } else if let vc = UIApplication.shared.keyWindow?.rootViewController as? UIViewController {
+                viewController = vc
+            } else {
+                print("❌ Could not get rootViewController")
+            }
         UnityAds.show(viewController, placementId: placementId, showDelegate: UnityAdsShowListener(placementChannelManager: placementChannelManager))
         return true
     }
