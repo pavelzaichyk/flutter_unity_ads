@@ -1,13 +1,11 @@
 import Flutter
+import UIKit
 import UnityAds
 
 public class SwiftUnityAdsPlugin: NSObject, FlutterPlugin {
     
-    static var viewController : UIViewController =  UIViewController();
-    
+   
     public static func register(with registrar: FlutterPluginRegistrar) {
-        viewController =
-        (UIApplication.shared.delegate?.window??.rootViewController)!;
         let messenger = registrar.messenger()
         
         let placementChannelManager = PlacementChannelManager(binaryMessenger: messenger)
@@ -60,7 +58,31 @@ public class SwiftUnityAdsPlugin: NSObject, FlutterPlugin {
             playerMetaData.setServerId(serverId)
             playerMetaData.commit()
         }
-        UnityAds.show(viewController, placementId: placementId, showDelegate: UnityAdsShowListener(placementChannelManager: placementChannelManager))
+        let presentingVC = topMostViewController()
+        UnityAds.show(presentingVC, placementId: placementId, showDelegate: UnityAdsShowListener(placementChannelManager: placementChannelManager))
         return true
+    }
+
+    // Returns the top-most UIViewController for presentation on iOS 13+.
+    private static func topMostViewController() -> UIViewController {
+        let keyWindow = UIApplication.shared.connectedScenes
+            .compactMap { $0 as? UIWindowScene }
+            .flatMap { $0.windows }
+            .first { $0.isKeyWindow }
+        guard var top = keyWindow?.rootViewController else {
+            return UIViewController()
+        }
+        // Walk the presentation stack to the visible one
+        while let presented = top.presentedViewController {
+            top = presented
+        }
+        // Prefer the visible/selected child when embedded
+        if let nav = top as? UINavigationController {
+            return nav.visibleViewController ?? nav
+        }
+        if let tab = top as? UITabBarController {
+            return tab.selectedViewController ?? tab
+        }
+        return top
     }
 }

@@ -1,3 +1,8 @@
+## 0.3.27
+
+* Updated to latest Unity Ads SDK (v4.16.1)
+* Fixed an occasional crash on iOS 13+ when resolving the root view controller
+
 ## 0.3.26
 
 * Updated to latest Unity Ads SDK (v4.15.1)
