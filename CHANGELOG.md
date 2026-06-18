@@ -1,3 +1,10 @@
+## 0.4.0
+
+* Added support for Swift Package Manager (SPM) on iOS, alongside CocoaPods
+* Updated to latest Unity Ads SDK (v4.18.1)
+* **Breaking:** minimum iOS deployment target raised to 13.0 (required by the Unity Ads Swift Package)
+* Fixed Android build failures on current toolchains: aligned the plugin's JVM targets (Java 11 / Kotlin `jvmTarget` 11) and removed an orphaned Kotlin `UnityAdsPlugin` stub that conflicted with the Java implementation
+
 ## 0.3.30
 
 * Updated to latest Unity Ads SDK (v4.17.0)

@@ -1,3 +1,4 @@
+import Flutter
 import UnityAds
 
 public class UnityAdsInitializationListener : NSObject, UnityAdsInitializationDelegate {

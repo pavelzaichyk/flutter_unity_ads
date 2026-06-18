@@ -29,8 +29,17 @@ android {
     compileSdk 34
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+
+    // Flutter's modern Gradle applies the Kotlin plugin to this module even though
+    // the plugin's own sources are Java. Pin the Kotlin JVM target so it matches the
+    // Java target and avoids "Inconsistent JVM-target compatibility" build failures.
+    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+        kotlinOptions {
+            jvmTarget = JavaVersion.VERSION_11.toString()
+        }
     }
 
     defaultConfig {
@@ -38,7 +47,7 @@ android {
     }
 
     dependencies {
-        implementation group: 'com.unity3d.ads', name: 'unity-ads', version: '4.17.0'
+        implementation group: 'com.unity3d.ads', name: 'unity-ads', version: '4.18.1'
 
         testImplementation 'junit:junit:4.13.2'
         testImplementation 'org.mockito:mockito-core:5.0.0'

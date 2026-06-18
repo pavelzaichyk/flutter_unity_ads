@@ -2,9 +2,9 @@ import Flutter
 import UIKit
 import UnityAds
 
-public class SwiftUnityAdsPlugin: NSObject, FlutterPlugin {
-    
-   
+@objc(UnityAdsPlugin)
+public class UnityAdsPlugin: NSObject, FlutterPlugin {
+
     public static func register(with registrar: FlutterPluginRegistrar) {
         let messenger = registrar.messenger()
         

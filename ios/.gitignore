@@ -35,3 +35,8 @@ Icon?
 
 /Flutter/Generated.xcconfig
 /Flutter/flutter_export_environment.sh
+
+# Swift Package Manager
+unity_ads_plugin/.build/
+unity_ads_plugin/Package.resolved
+.swiftpm/
