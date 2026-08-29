@@ -16,7 +16,7 @@ Flutter unity ads plugin.
   s.source_files = 'unity_ads_plugin/Sources/unity_ads_plugin/**/*.swift'
   s.dependency 'Flutter'
   s.platform = :ios, '13.0'
-  s.dependency 'UnityAds', '4.18.1'
+  s.dependency 'UnityAds', '4.20.0'
 
   # Flutter.framework does not contain a i386 slice.
   # s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'arm64'}

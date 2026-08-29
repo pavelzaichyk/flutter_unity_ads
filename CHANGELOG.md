@@ -1,3 +1,7 @@
+## 0.5.0
+
+* Updated to latest Unity Ads SDK (v4.20.0)
+
 ## 0.4.0
 
 * Added support for Swift Package Manager (SPM) on iOS, alongside CocoaPods

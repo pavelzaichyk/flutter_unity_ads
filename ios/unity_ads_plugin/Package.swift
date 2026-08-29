@@ -15,7 +15,7 @@ let package = Package(
         .package(name: "FlutterFramework", path: "../FlutterFramework"),
         .package(
             url: "https://github.com/Unity-Technologies/Unity-Ads-Swift-Package",
-            from: "4.18.1"
+            from: "4.20.0"
         )
     ],
     targets: [
