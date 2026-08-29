@@ -1,29 +1,16 @@
 PODS:
   - Flutter (1.0.0)
-  - unity_ads_plugin (0.0.1):
-    - Flutter
-    - UnityAds (= 4.17.0)
-  - UnityAds (4.17.0)
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
-  - unity_ads_plugin (from `.symlinks/plugins/unity_ads_plugin/ios`)
-
-SPEC REPOS:
-  trunk:
-    - UnityAds
 
 EXTERNAL SOURCES:
   Flutter:
     :path: Flutter
-  unity_ads_plugin:
-    :path: ".symlinks/plugins/unity_ads_plugin/ios"
 
 SPEC CHECKSUMS:
-  Flutter: cabc95a1d2626b1b06e7179b784ebcf0c0cde467
-  unity_ads_plugin: 218d9a80d1aae5572000015c3f3a86f1a695f342
-  UnityAds: adbe0d522fd14b8298c5e159164fc43396165843
+  Flutter: 71a624a5bc0c04062bf19101d501e466baf2fb47
 
-PODFILE CHECKSUM: 4f1c12611da7338d21589c0b2ecd6bd20b109694
+PODFILE CHECKSUM: 0e525152e3ec397947996fbf92d176f885bd8b2a
 
 COCOAPODS: 1.16.2
