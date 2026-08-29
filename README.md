@@ -172,67 +172,29 @@ UnityAds.setPrivacyConsent(<Privacy Consent type>, true)
 
 ### Android: the ad shows up as a separate app in Recent Apps
 
-**Symptom.** While a fullscreen ad (interstitial or rewarded) is playing, opening Recent Apps
-shows *two* cards for your app: your app and the ad. The user can swipe the ad away in one
-gesture, so the ad never completes and the impression is lost.
+**Symptom.** While a fullscreen ad is playing, Recent Apps shows two cards for your app — your
+app and the ad. Users can swipe the ad away before it completes, so the impression is lost.
 
-**Why it happens.** Android groups screens into *tasks* — one task is one card in Recent Apps.
-Which task a screen joins is decided by a label called *task affinity*: by default every screen
-in your app shares the same affinity (your package name) and therefore the same card.
-
-Unity's ad screen is launched with `FLAG_ACTIVITY_NEW_TASK`. That flag doesn't mean "make a new
-card" — it means "put me in the task I belong to", and Android picks that task by matching
-affinities ([Tasks and the back stack](https://developer.android.com/guide/components/activities/tasks-and-back-stack)):
-
-> If there's an existing task with the same affinity as the new activity, the activity is
-> launched into that task. If not, it begins a new task.
-
-Since 2024 the Flutter app template stamps `MainActivity` with a *blank* affinity
-([flutter#144018](https://github.com/flutter/flutter/pull/144018)), while Unity's ad screen keeps
-the default one. The labels don't match, so Android opens a second task — a second card.
-
-**Fix.** Delete one line from your app's `android/app/src/main/AndroidManifest.xml`:
+**Fix.** Remove one line from your app's `android/app/src/main/AndroidManifest.xml`:
 
 ```xml
 <activity
     android:name=".MainActivity"
-    android:taskAffinity=""     <!-- delete this line -->
+    android:taskAffinity=""     <!-- remove this line -->
     ...>
 ```
 
-Both screens then share the default affinity, the ad joins your app's task, and Recent Apps
-shows a single card again. This is a change in *your app* — the plugin cannot override it,
-because the attribute lives in your manifest and the ad screen is declared inside Unity's SDK.
+Flutter's template adds that blank affinity; Unity's ad screen keeps the default one. Android
+puts screens with different affinities in [different tasks](https://developer.android.com/guide/components/activities/tasks-and-back-stack)
+— hence the second card. Removing it puts the ad back in your app's task.
 
-**Trade-off.** `android:taskAffinity=""` is there to block *task hijacking*, where a malicious
-app already installed on the device claims your affinity and slips a fake screen (say, a login
-form) in front of your user.
+**Trade-off.** The attribute guards against task hijacking
+([flutter#144018](https://github.com/flutter/flutter/pull/144018)), which Android patches at the
+OS level [from API 30](https://developer.android.com/privacy-and-security/risks/strandhogg). On
+`minSdk` 30+ removing it costs nothing; below that, users on Android 7–10 lose partial
+protection — raising `minSdk` to 30 fixes both concerns at once.
 
-How much you give up depends on your `minSdk`. Per Android's own
-[StrandHogg / task affinity](https://developer.android.com/privacy-and-security/risks/strandhogg)
-page:
-
-> Android SDK versions 30 and newer (Android 11) contain the appropriate OS patches to avoid
-> this vulnerability.
-
-> While it is possible to partially mitigate version 1 of the StrandHogg attack through
-> individual application configuration, version 2 of the attack can only be prevented by this
-> SDK version patch.
-
-- **`minSdk` 30 or higher** — the OS already blocks both variants of the attack. The attribute
-  buys you nothing; delete it.
-- **`minSdk` 24–29** (Flutter's default is 24) — users on Android 7–10 lose partial protection
-  against one variant of the attack. Android's recommended fix is raising `minSdk` to 30, which
-  also resolves the Recent Apps problem as a side effect.
-
-Apps handling logins, payments, or personal data on Android 7–10 may prefer to keep the
-attribute and accept the lost impressions. That's a decision for your app, not the plugin.
-
-**What doesn't work.** Adding `android:excludeFromRecents="true"` to Unity's ad activity (via
-`tools:replace`) does not help — the ad still gets its own card while it is on screen. Neither
-does setting a matching `android:taskAffinity=""` on Unity's activity: a blank affinity never
-matches an existing task, so Android still creates a new one.
-
+Adding `excludeFromRecents` to Unity's ad activity does *not* work as an alternative.
 See [issue #70](https://github.com/pavelzaichyk/flutter_unity_ads/issues/70).
 
 ---
