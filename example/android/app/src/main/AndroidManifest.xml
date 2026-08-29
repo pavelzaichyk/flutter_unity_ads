@@ -3,11 +3,14 @@
         android:label="unity_ads_example"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+        <!-- android:taskAffinity="" is intentionally omitted below. The Flutter template adds
+             it, but a blank affinity makes Android open Unity's fullscreen ad in a separate
+             task, so the ad gets its own card in Recent Apps and can be swiped away before it
+             completes. See the Troubleshooting section of the README. -->
         <activity
             android:name=".MainActivity"
             android:exported="true"
             android:launchMode="singleTop"
-            android:taskAffinity=""
             android:theme="@style/LaunchTheme"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
             android:hardwareAccelerated="true"

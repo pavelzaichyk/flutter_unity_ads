@@ -1,6 +1,9 @@
 ## 0.5.0
 
 * Updated to latest Unity Ads SDK (v4.20.0)
+* Documented why Android fullscreen ads can appear as a separate card in Recent Apps, and how to
+  fix it by removing `android:taskAffinity=""` from the app's manifest (see Troubleshooting in the
+  README); removed the attribute from the example app
 
 ## 0.4.0
 
