@@ -12,7 +12,7 @@
 
 📢 Follow for updates: [t.me/pavelzaichyk_dev](https://t.me/pavelzaichyk_dev)
 
-A Flutter plugin for integrating [Unity Ads](https://docs.unity.com/ads/UnityAdsHome.htm) into your mobile applications. Easily display Unity Banner Ads and Unity Video Ads (Rewarded & Interstitial) with simple Dart APIs.
+A Flutter plugin for integrating [Unity Ads](https://docs.unity.com/en-us/grow/ads/unity-sdk) into your mobile applications. Easily display Unity Banner Ads and Unity Video Ads (Rewarded & Interstitial) with simple Dart APIs.
 
 ---
 

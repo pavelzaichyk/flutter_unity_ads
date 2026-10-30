@@ -1,3 +1,7 @@
+## 0.6.0
+
+* Updated to latest Unity Ads SDK (v4.21.0)
+
 ## 0.5.0
 
 * Updated to latest Unity Ads SDK (v4.20.0)
